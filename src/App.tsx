@@ -6,38 +6,24 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TitleBar from './components/TitleBar';
 import { StepsProvider } from './module-youtube/contexts/steps/StepsContext';
 import { MusicProvider } from './module-youtube/contexts/music/MusicContext';
-import { PaletteMode, useMediaQuery } from '@mui/material';
-import {
-  DarkThemeContext,
-  DarkThemeProvider,
-} from './module-youtube/contexts/theme/DarkThemeContext';
-import { DarkThemeMode } from './shared/enums/darkThemeModeEnum';
+import { DarkThemeContext } from './module-youtube/contexts/theme/DarkThemeContext';
+import { Box } from '@mui/material';
 
 function App() {
-  // Dark theme logic
-  const { currentMode } = useContext(DarkThemeContext);
-  let mode: PaletteMode;
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-  if (currentMode !== DarkThemeMode.NATIVE) mode = currentMode;
-  else if (prefersDarkMode) mode = 'dark';
-  else mode = 'light';
-
-  const theme = React.useMemo(
-    () =>
-      createTheme({
-        palette: { mode },
-      }),
-    [currentMode, prefersDarkMode]
-  );
+  // Theme logic
+  const { themeOptions } = useContext(DarkThemeContext);
+  const theme = React.useMemo(() => createTheme(themeOptions), [themeOptions]);
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <TitleBar />
-      <StepsProvider>
-        <MusicProvider>
-          <YoutubeSteps />
-        </MusicProvider>
-      </StepsProvider>
+      <Box mt={10}>
+        <StepsProvider>
+          <MusicProvider>
+            <YoutubeSteps />
+          </MusicProvider>
+        </StepsProvider>
+      </Box>
     </ThemeProvider>
   );
 }
