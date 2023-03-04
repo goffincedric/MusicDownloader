@@ -21,6 +21,8 @@ export const TranslationConstants = {
     FINISHED_DOWNLOADS: 'Finished downloads',
     DOWNLOADED_TRACKS: 'Downloaded tracks',
     NO_DOWNLOADABLE_TRACKS: 'No tracks ready for download...',
+    STEPS_COMPLETED_THANKS: 'Thanks for using our website!',
+    STEPS_COMPLETED_RETRY: 'Want to download another video/playlist? Click the button below to start over!',
   },
   PLACEHOLDERS: {
     YOUTUBE_URL: 'Enter your youtube url here...',
@@ -38,6 +40,7 @@ export const TranslationConstants = {
     DESELECT_ALL: 'Deselect all',
     DOWNLOAD: 'Download',
     DOWNLOAD_ALL: 'Download all',
+    DOWNLOAD_MORE: 'Download more',
     [DarkThemeMode.LIGHT]: 'Light',
     [DarkThemeMode.NATIVE]: 'System',
     [DarkThemeMode.DARK]: 'Dark',

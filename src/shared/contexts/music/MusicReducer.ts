@@ -1,6 +1,6 @@
 import { MusicAction, MusicActionType } from './MusicActions';
-import { Track } from '../../../shared/models/track';
-import { DownloadStatusEnum } from '../../../shared/enums/downloadStatusEnum';
+import { Track } from '../../models/track';
+import { DownloadStatusEnum } from '../../enums/downloadStatusEnum';
 import { downloadTracksReducer } from './reducers/DownloadTracksReducer';
 
 export interface MusicState {

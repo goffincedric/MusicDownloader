@@ -2,13 +2,13 @@ import React, { Fragment, useContext, useMemo } from 'react';
 import Typography from '@mui/material/Typography';
 import { TranslationConstants } from '../../../shared/constants/translation.constants';
 import { Box, Divider } from '@mui/material';
-import { MusicContext } from '../../contexts/music/MusicContext';
+import { MusicContext } from '../../../shared/contexts/music/MusicContext';
 import TrackDownloadList from '../lists/TrackDownloadList';
 import { DownloadStatusEnum } from '../../../shared/enums/downloadStatusEnum';
 import TracksBulkDownload from '../lists/TracksBulkDownload';
 import NavigationButtons from '../../../shared/components/NavigationButtons';
-import { StepActionType } from '../../contexts/steps/StepActions';
-import { StepsDispatchContext } from '../../contexts/steps/StepsContext';
+import { StepActionType } from '../../../shared/contexts/steps/StepActions';
+import { StepsDispatchContext } from '../../../shared/contexts/steps/StepsContext';
 
 export default function DownloadStep() {
   const { tracks: _tracks } = useContext(MusicContext);
@@ -51,8 +51,6 @@ export default function DownloadStep() {
         tracks={downloadableTracks}
         emptyListMessage={TranslationConstants.LABELS.NO_DOWNLOADABLE_TRACKS}
       />
-      {/* TODO: Thank you message */}
-      {/* TODO: Download more button */}
     </Fragment>
   );
 }

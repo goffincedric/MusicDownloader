@@ -1,5 +1,5 @@
-import { Track } from '../../../shared/models/track';
-import { DownloadStatusEnum } from '../../../shared/enums/downloadStatusEnum';
+import { Track } from '../../models/track';
+import { DownloadStatusEnum } from '../../enums/downloadStatusEnum';
 import { Dispatch } from 'react';
 
 export enum MusicActionType {

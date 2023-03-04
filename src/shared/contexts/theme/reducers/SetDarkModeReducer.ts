@@ -1,7 +1,7 @@
 import { ThemeOptions } from '@mui/material';
 import { DarkThemeAction } from '../DarkThemeActions';
-import { DarkThemeMode } from '../../../../shared/enums/darkThemeModeEnum';
-import { ThemeConstants } from '../../../../shared/constants/theme.constants';
+import { DarkThemeMode } from '../../../enums/darkThemeModeEnum';
+import { ThemeConstants } from '../../../constants/theme.constants';
 
 export const setDarkModeReducer = (themeOptions: ThemeOptions, action: DarkThemeAction): ThemeOptions => {
   // Decide new mode

@@ -5,9 +5,6 @@ import { TranslationConstants } from '../../../shared/constants/translation.cons
 import { useForm } from 'react-hook-form';
 import * as joi from 'joi';
 import { joiResolver } from '@hookform/resolvers/joi';
-import Box from '@mui/material/Box';
-import { LoadingButton } from '@mui/lab';
-import { NavigateNext } from '@mui/icons-material';
 import { RegexConstants } from '../../../shared/constants/regex.constants';
 import Typography from '@mui/material/Typography';
 import NavigationButtons from '../../../shared/components/NavigationButtons';
@@ -22,11 +19,7 @@ interface UrlFormValues {
   url: string;
 }
 
-export default function UrlForm({
-  onUrlSubmit,
-  loading,
-  disabled,
-}: UrlFormProps) {
+export default function UrlForm({ onUrlSubmit, loading, disabled }: UrlFormProps) {
   const schema = joi.object({
     url: joi
       .string()
@@ -44,8 +37,7 @@ export default function UrlForm({
   });
   const { errors } = formState;
 
-  const handleUrlSubmit = (formValues: UrlFormValues) =>
-    onUrlSubmit(formValues.url);
+  const handleUrlSubmit = (formValues: UrlFormValues) => onUrlSubmit(formValues.url);
 
   return (
     <Fragment>

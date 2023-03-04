@@ -32,7 +32,6 @@ export default function TrackProcessingStatus({
         sx={{ width: size, height: size, transform: 'scaleX(-1)' }}
         onClick={onRetry}
       >
-        {/* Other icons: RestartAlt, Sync, Cached */}
         <Refresh />
       </Fab>
     );
@@ -56,11 +55,9 @@ export default function TrackProcessingStatus({
             justifyContent: 'center',
           }}
         >
-          <Typography
-            variant="caption"
-            component="div"
-            color="text.secondary"
-          >{`${Math.round(downloadProgress)}%`}</Typography>
+          <Typography variant="caption" component="div" color="text.secondary">{`${Math.round(
+            downloadProgress
+          )}%`}</Typography>
         </Box>
       </Box>
     );
@@ -69,19 +66,14 @@ export default function TrackProcessingStatus({
   return (
     <Box
       sx={{
-        display:
-          downloadStatus !== DownloadStatusEnum.WAITING_FOR_START
-            ? 'flex'
-            : 'none',
+        display: downloadStatus !== DownloadStatusEnum.WAITING_FOR_START ? 'flex' : 'none',
         alignItems: 'center',
         pl: 2,
         pb: 2,
       }}
     >
       <Box sx={{ mr: 2, width: 50, height: 50 }}>{content}</Box>
-      <Typography variant="body2">
-        {TranslationConstants.LABELS[downloadStatus]}
-      </Typography>
+      <Typography variant="body2">{TranslationConstants.LABELS[downloadStatus]}</Typography>
     </Box>
   );
 }

@@ -1,13 +1,13 @@
 import UrlForm from '../forms/UrlForm';
 import { useContext, useState } from 'react';
-import { MusicDispatchContext } from '../../contexts/music/MusicContext';
-import { MusicActionType } from '../../contexts/music/MusicActions';
+import { MusicDispatchContext } from '../../../shared/contexts/music/MusicContext';
+import { MusicActionType } from '../../../shared/contexts/music/MusicActions';
 import { YoutubeUtils } from '../../../shared/utils/youtube.utils';
 import { YoutubeUrlType } from '../../../shared/enums/youtubeUrlType';
 import { Track } from '../../../shared/models/track';
 import { PlaylistService, VideoService } from '../../../shared/services/openapi';
-import { StepsDispatchContext } from '../../contexts/steps/StepsContext';
-import { StepActionType } from '../../contexts/steps/StepActions';
+import { StepsDispatchContext } from '../../../shared/contexts/steps/StepsContext';
+import { StepActionType } from '../../../shared/contexts/steps/StepActions';
 import { YoutubeTrack } from '../../../shared/models/youtubeTrack';
 
 /*

@@ -2,18 +2,18 @@ import { Fragment, useContext, useMemo } from 'react';
 import {
   MusicContext,
   MusicDispatchContext,
-} from '../../contexts/music/MusicContext';
+} from '../../../shared/contexts/music/MusicContext';
 import { DownloadStatusEnum } from '../../../shared/enums/downloadStatusEnum';
 import { Divider } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { TranslationConstants } from '../../../shared/constants/translation.constants';
 import Box from '@mui/material/Box';
 import { Track } from '../../../shared/models/track';
-import { MusicActionType } from '../../contexts/music/MusicActions';
+import { MusicActionType } from '../../../shared/contexts/music/MusicActions';
 import LinearProgressWithLabel from '../../../shared/components/LinearProgressWithLabel';
 import { Check, Settings } from '@mui/icons-material';
-import { StepsDispatchContext } from '../../contexts/steps/StepsContext';
-import { StepActionType } from '../../contexts/steps/StepActions';
+import { StepsDispatchContext } from '../../../shared/contexts/steps/StepsContext';
+import { StepActionType } from '../../../shared/contexts/steps/StepActions';
 import { GlobalConstants } from '../../../shared/constants/global.constants';
 import LoadingButtonCustomIcon from '../../../shared/components/LoadingButtonCustomIcon';
 import TrackProcessingList from '../lists/TrackProcessingList';

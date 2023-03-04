@@ -1,13 +1,13 @@
 import VideoSelectionForm from '../forms/VideoSelectionForm';
 import { Track } from '../../../shared/models/track';
-import { MusicActionType } from '../../contexts/music/MusicActions';
+import { MusicActionType } from '../../../shared/contexts/music/MusicActions';
 import { useContext, useMemo, useState } from 'react';
 import {
   MusicContext,
   MusicDispatchContext,
-} from '../../contexts/music/MusicContext';
-import { StepsDispatchContext } from '../../contexts/steps/StepsContext';
-import { StepActionType } from '../../contexts/steps/StepActions';
+} from '../../../shared/contexts/music/MusicContext';
+import { StepsDispatchContext } from '../../../shared/contexts/steps/StepsContext';
+import { StepActionType } from '../../../shared/contexts/steps/StepActions';
 
 export default function VideoSelectionStep() {
   const { tracks } = useContext(MusicContext);

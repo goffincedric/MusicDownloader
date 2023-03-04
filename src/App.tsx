@@ -4,9 +4,9 @@ import YoutubeSteps from './module-youtube/components/YoutubeSteps';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TitleBar from './components/TitleBar';
-import { StepsProvider } from './module-youtube/contexts/steps/StepsContext';
-import { MusicProvider } from './module-youtube/contexts/music/MusicContext';
-import { DarkThemeContext } from './module-youtube/contexts/theme/DarkThemeContext';
+import { StepsProvider } from './shared/contexts/steps/StepsContext';
+import { MusicProvider } from './shared/contexts/music/MusicContext';
+import { DarkThemeContext } from './shared/contexts/theme/DarkThemeContext';
 import { Box } from '@mui/material';
 
 function App() {

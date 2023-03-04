@@ -28,9 +28,7 @@ export default function TrackFileDownload({
         gap: 2,
       }}
     >
-      {/*<FilePresent />*/}
       <AudioFile sx={{ color: grey[500], width: size, height: size }} />
-      {/*<InsertDriveFile />*/}
       <Box>
         <Typography variant="body2">{fileName}</Typography>
         <Button

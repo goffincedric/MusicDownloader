@@ -1,7 +1,7 @@
 import { createContext, Dispatch, PropsWithChildren, useReducer } from 'react';
 import { initialMusicState, MusicReducer, MusicState } from './MusicReducer';
 import { MusicAction } from './MusicActions';
-import { DownloadStatusEnum } from '../../../shared/enums/downloadStatusEnum';
+import { DownloadStatusEnum } from '../../enums/downloadStatusEnum';
 
 export const MusicContext = createContext<MusicState>({} as MusicState);
 export const MusicDispatchContext = createContext<Dispatch<MusicAction>>(

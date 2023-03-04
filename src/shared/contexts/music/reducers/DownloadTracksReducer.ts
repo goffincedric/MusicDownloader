@@ -1,11 +1,11 @@
 import { MusicAction, MusicActionType } from '../MusicActions';
-import { DownloadStatusEnum } from '../../../../shared/enums/downloadStatusEnum';
-import { Track } from '../../../../shared/models/track';
+import { DownloadStatusEnum } from '../../../enums/downloadStatusEnum';
+import { Track } from '../../../models/track';
 import { AxiosProgressEvent } from 'axios';
 import { Dispatch } from 'react';
-import { VideoDownloadService } from '../../../../shared/services/youtube/VideoDownloadService';
-import { AxiosUtils } from '../../../../shared/utils/axios.utils';
-import { GlobalConstants } from '../../../../shared/constants/global.constants';
+import { VideoDownloadService } from '../../../services/youtube/VideoDownloadService';
+import { AxiosUtils } from '../../../utils/axios.utils';
+import { GlobalConstants } from '../../../constants/global.constants';
 
 // Define download progress handler
 const handleDownloadProgress = (

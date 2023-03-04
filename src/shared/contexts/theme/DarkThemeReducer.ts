@@ -1,8 +1,8 @@
 import { DarkThemeAction, DarkThemeActionType } from './DarkThemeActions';
 import { ThemeOptions } from '@mui/material';
 import { setDarkModeReducer } from './reducers/SetDarkModeReducer';
-import { DarkThemeMode } from '../../../shared/enums/darkThemeModeEnum';
-import { ThemeConstants } from '../../../shared/constants/theme.constants';
+import { DarkThemeMode } from '../../enums/darkThemeModeEnum';
+import { ThemeConstants } from '../../constants/theme.constants';
 
 export interface DarkThemeState {
   currentMode: DarkThemeMode;

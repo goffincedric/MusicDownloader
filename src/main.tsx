@@ -8,11 +8,11 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { OpenAPI } from './shared/services/openapi';
-import { DarkThemeProvider } from './module-youtube/contexts/theme/DarkThemeContext';
+import { DarkThemeProvider } from './shared/contexts/theme/DarkThemeContext';
 import { ThemeConstants } from './shared/constants/theme.constants';
 import { useMediaQuery } from '@mui/material';
 
-OpenAPI.BASE = 'https://localhost:44392';
+OpenAPI.BASE = import.meta.env.VITE_API_URL;
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   // <React.StrictMode>

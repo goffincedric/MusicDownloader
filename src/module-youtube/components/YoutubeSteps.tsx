@@ -4,7 +4,7 @@ import Paper from '@mui/material/Paper';
 import Step from '@mui/material/Step';
 import { GlobalConstants } from '../../shared/constants/global.constants';
 import { StepsCompleted } from './StepsCompleted';
-import { StepsContext } from '../contexts/steps/StepsContext';
+import { StepsContext } from '../../shared/contexts/steps/StepsContext';
 import { StepLabel, Stepper } from '@mui/material';
 
 const steps = GlobalConstants.Steps;

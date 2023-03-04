@@ -1,8 +1,8 @@
 import { MouseEvent, useContext } from 'react';
 import { Paper, SxProps, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import { TranslationConstants } from '../constants/translation.constants';
-import { DarkThemeContext, DarkThemeDispatchContext } from '../../module-youtube/contexts/theme/DarkThemeContext';
-import { DarkThemeActionType } from '../../module-youtube/contexts/theme/DarkThemeActions';
+import { DarkThemeContext, DarkThemeDispatchContext } from '../contexts/theme/DarkThemeContext';
+import { DarkThemeActionType } from '../contexts/theme/DarkThemeActions';
 import { DarkThemeMode } from '../enums/darkThemeModeEnum';
 import { grey } from '@mui/material/colors';
 import { DarkMode, LightMode, SettingsBrightness } from '@mui/icons-material';

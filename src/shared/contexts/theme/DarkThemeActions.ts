@@ -1,4 +1,4 @@
-import { DarkThemeMode } from '../../../shared/enums/darkThemeModeEnum';
+import { DarkThemeMode } from '../../enums/darkThemeModeEnum';
 
 // Action types
 export enum DarkThemeActionType {
