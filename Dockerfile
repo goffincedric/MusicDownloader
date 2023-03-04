@@ -12,16 +12,13 @@ RUN git config --global user.email "temp@temp.com" && git config --global user.n
 # Setup app space
 RUN mkdir /app
 WORKDIR /app
+EXPOSE 8083
 
 # Clone bot from Github
 RUN eval $(ssh-agent) && ssh-add /root/.ssh/docker_key && git clone git@github.com:goffincedric/MusicDownloader.git
 WORKDIR MusicDownloader
 RUN yarn install
 WORKDIR bin
-
-# Set env vars
-ENV HOME /app/derp-squad-discord-bot/bin
-ENV PATH /app/derp-squad-discord-bot/node_modules/.bin:$PATH
 
 # Run bot
 CMD ./update.sh && ./serve.sh

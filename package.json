@@ -5,10 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite --mode=dev",
-    "build": "tsc && vite build --mode=prod",
+    "build": "vite build",
     "prepreview": "yarn build",
     "preview": "vite preview",
-    "serve": "serve -s ./dist",
+    "serve": "serve -s ./dist -l 8083",
     "preopenapi:gen": "del-cli src/shared/services/openapi",
     "openapi:gen": "openapi -i http://localhost:55077/swagger/v1/swagger.json -o src/shared/services/openapi --client axios"
   },

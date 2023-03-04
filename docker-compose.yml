@@ -5,5 +5,7 @@ services:
       context: .
       args:
         PORTAINER_SSH_KEY: ${PORTAINER_SSH_KEY} # from .env file
+    ports:
+      - "8083:8083"
     restart: "always"
     env_file: stack.env
