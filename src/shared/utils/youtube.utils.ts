@@ -1,6 +1,6 @@
 import { RegexConstants } from '../constants/regex.constants';
 import { YoutubeUrlType } from '../enums/youtubeUrlType';
-import { Thumbnail } from '../services/openapi';
+import { ThumbnailDetails } from '../services/openapi';
 
 export const YoutubeUtils = {
   resolveUrlType: (url: string): YoutubeUrlType => {
@@ -15,9 +15,9 @@ export const YoutubeUtils = {
       RegexConstants.YOUTUBE.YOUTUBE_URL_REGEX.exec(url) ?? [];
     return videoId || null;
   },
-  getBestThumbnail(thumbnails: Thumbnail[]): Thumbnail {
+  getBestThumbnail(thumbnails: ThumbnailDetails[]): ThumbnailDetails {
     return thumbnails.reduce((best, current) => {
-      if (!best || current.resolution?.area! > best.resolution?.area!)
+      if (!best || current.area! > best.area!)
         return current;
       return best;
     });

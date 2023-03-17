@@ -1,8 +1,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Playlist } from '../models/Playlist';
-import type { PlaylistVideo } from '../models/PlaylistVideo';
+import type { PlaylistDetailsExtended } from '../models/PlaylistDetailsExtended';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -12,34 +11,21 @@ export class PlaylistService {
 
     /**
      * @param url 
-     * @returns Playlist Success
+     * @returns PlaylistDetailsExtended Success
      * @throws ApiError
      */
     public static getYoutubePlaylist(
 url?: string,
-): CancelablePromise<Playlist> {
+): CancelablePromise<PlaylistDetailsExtended> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/youtube/playlist',
             query: {
                 'url': url,
             },
-        });
-    }
-
-    /**
-     * @param url 
-     * @returns PlaylistVideo Success
-     * @throws ApiError
-     */
-    public static getYoutubePlaylistVideos(
-url?: string,
-): CancelablePromise<Array<PlaylistVideo>> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/youtube/playlist/videos',
-            query: {
-                'url': url,
+            errors: {
+                400: `Bad Request`,
+                500: `Server Error`,
             },
         });
     }

@@ -21,20 +21,20 @@ Test data:
  */
 
 const resolveYoutubeVideo = async (url: string): Promise<Track> => {
-  const video = await VideoService.getYoutubeVideo(url);
+  const videoDetails = await VideoService.getYoutubeVideo(url);
   return new YoutubeTrack(
-    video.author?.title!,
-    video.title!,
-    video.url!,
-    YoutubeUtils.getBestThumbnail(video.thumbnails!)
+    videoDetails.authorName!,
+    videoDetails.title!,
+    videoDetails.url!,
+    YoutubeUtils.getBestThumbnail(videoDetails.thumbnails!)
   );
 };
 const resolveYoutubePlaylist = async (url: string): Promise<Track[]> => {
-  const playlistVideos = await PlaylistService.getYoutubePlaylistVideos(url);
-  return playlistVideos.map(
+  const playlistDetails = await PlaylistService.getYoutubePlaylist(url);
+  return playlistDetails.tracks!.map(
     (playlistVideo) =>
       new YoutubeTrack(
-        playlistVideo.author?.title!,
+        playlistVideo.authorName!,
         playlistVideo.title!,
         playlistVideo.url!,
         YoutubeUtils.getBestThumbnail(playlistVideo.thumbnails!)

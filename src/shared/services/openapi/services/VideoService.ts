@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Video } from '../models/Video';
+import type { TrackDetails } from '../models/TrackDetails';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -11,17 +11,21 @@ export class VideoService {
 
     /**
      * @param url 
-     * @returns Video Success
+     * @returns TrackDetails Success
      * @throws ApiError
      */
     public static getYoutubeVideo(
 url?: string,
-): CancelablePromise<Video> {
+): CancelablePromise<TrackDetails> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/youtube/video',
             query: {
                 'url': url,
+            },
+            errors: {
+                400: `Bad Request`,
+                500: `Server Error`,
             },
         });
     }
@@ -39,6 +43,10 @@ url?: string,
             url: '/youtube/video/download',
             query: {
                 'url': url,
+            },
+            errors: {
+                400: `Bad Request`,
+                500: `Server Error`,
             },
         });
     }
