@@ -25,7 +25,7 @@ export const TranslationConstants = {
     STEPS_COMPLETED_RETRY: 'Want to download another video/playlist? Click the button below to start over!',
   },
   PLACEHOLDERS: {
-    YOUTUBE_URL: 'Enter your youtube url here...',
+    YOUTUBE_URL: 'Enter your youtube video or playlist url here...',
   },
   BUTTONS: {
     NEXT: 'Next',

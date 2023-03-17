@@ -13,7 +13,6 @@ import { ThemeConstants } from './shared/constants/theme.constants';
 import { useMediaQuery } from '@mui/material';
 
 OpenAPI.BASE = import.meta.env.VITE_API_URL;
-console.log(OpenAPI.BASE);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   // <React.StrictMode>
