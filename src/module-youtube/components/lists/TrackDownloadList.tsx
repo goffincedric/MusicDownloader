@@ -9,11 +9,7 @@ interface TrackDownloadsListProps {
   tracks: Track[];
   emptyListMessage: string;
 }
-export default function TrackDownloadList({
-  title,
-  tracks,
-  emptyListMessage,
-}: TrackDownloadsListProps) {
+export default function TrackDownloadList({ title, tracks, emptyListMessage }: TrackDownloadsListProps) {
   return (
     <Grid container spacing={3} justifyContent="center" mb={3}>
       <Grid item xs={12}>
@@ -24,20 +20,12 @@ export default function TrackDownloadList({
         tracks.map((track, index) => (
           <Grid key={index} item xs={12} sm={6} md={4}>
             <DynamicTrackCard track={track} coverPosition="top">
-              <TrackFileDownload
-                fileName={track.fileName!}
-                file={track.file!}
-              />
+              <TrackFileDownload file={track.file!} />
             </DynamicTrackCard>
           </Grid>
         ))
       ) : (
-        <Typography
-          variant="subtitle1"
-          color="text.secondary"
-          component="div"
-          mt={4}
-        >
+        <Typography variant="subtitle1" color="text.secondary" component="div" mt={4}>
           {emptyListMessage}
         </Typography>
       )}

@@ -20,7 +20,7 @@ export default function TracksBulkDownload({
   const handleBulkDownload = async () => {
     setIsLoading(true);
     const zip = new JSZip();
-    tracks.forEach((track) => zip.file(track.fileName!, track.file!));
+    tracks.forEach((track) => zip.file(track.file?.name!, track.file!));
     const zipFile = await zip.generateAsync({ type: 'blob' });
     saveAs(zipFile, 'tracks.zip');
     setIsLoading(false);

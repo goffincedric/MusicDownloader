@@ -18,7 +18,7 @@ export default function YoutubeSteps() {
   const { currentStep } = useContext(StepsContext);
 
   return (
-    <Container component="main" maxWidth="md" sx={{ mb: 4 }}>
+    <Container component="main" maxWidth="lg" sx={{ mb: 4 }}>
       <Paper elevation={3} sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
         <Stepper
           activeStep={currentStep}

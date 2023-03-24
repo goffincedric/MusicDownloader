@@ -1,7 +1,4 @@
 // Action types
-import { Dispatch } from 'react';
-import { MusicResetAction } from '../music/MusicActions';
-
 export enum StepActionType {
   SET_PROGRESSION_ALLOWED = 'SET_PROGRESSION_ALLOWED',
   PROGRESS = 'PROGRESS',
@@ -9,11 +6,7 @@ export enum StepActionType {
   RESET = 'RESET',
 }
 
-export type StepAction =
-  | SetProgressionAction
-  | ProgressAction
-  | GoBackAction
-  | ResetAction;
+export type StepAction = SetProgressionAction | ProgressAction | GoBackAction | ResetAction;
 
 // Actions
 export interface SetProgressionAction {
@@ -31,5 +24,4 @@ export interface GoBackAction {
 
 export interface ResetAction {
   type: StepActionType.RESET;
-  dispatchMusicAction: Dispatch<MusicResetAction>
 }

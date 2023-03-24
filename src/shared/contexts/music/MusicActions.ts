@@ -9,7 +9,6 @@ export enum MusicActionType {
   SET_ALL_TRACKS_SELECTED = 'SET_ALL_TRACKS_SELECTED',
   SET_DOWNLOAD_STATUS = 'SET_DOWNLOAD_STATUS',
   UPDATE_TRACK = 'UPDATE_TRACK',
-  DOWNLOAD_TRACKS = 'DOWNLOAD_TRACKS',
   RESET = 'RESET',
 }
 
@@ -20,7 +19,6 @@ export type MusicAction =
   | SetAllTracksSelectedAction
   | SetDownloadStatusAction
   | UpdateTrackAction
-  | DownloadTracksAction
   | MusicResetAction;
 
 export interface SetUrlAction {
@@ -47,10 +45,6 @@ export interface SetAllTracksSelectedAction {
 export interface UpdateTrackAction {
   type: MusicActionType.UPDATE_TRACK;
   updatedTrack: Track;
-}
-export interface DownloadTracksAction {
-  type: MusicActionType.DOWNLOAD_TRACKS;
-  dispatchMusicAction: Dispatch<MusicAction>
 }
 export interface MusicResetAction {
   type: MusicActionType.RESET;

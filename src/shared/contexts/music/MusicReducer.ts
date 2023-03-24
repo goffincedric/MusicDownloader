@@ -1,7 +1,6 @@
 import { MusicAction, MusicActionType } from './MusicActions';
 import { Track } from '../../models/track';
 import { DownloadStatusEnum } from '../../enums/downloadStatusEnum';
-import { downloadTracksReducer } from './reducers/DownloadTracksReducer';
 
 export interface MusicState {
   url?: string;
@@ -14,10 +13,7 @@ export const initialMusicState: MusicState = {
   tracks: [],
 };
 
-export const MusicReducer = (
-  state: MusicState,
-  action: MusicAction
-): MusicState => {
+export const MusicReducer = (state: MusicState, action: MusicAction): MusicState => {
   switch (action.type) {
     case MusicActionType.SET_URL:
       return {
@@ -51,39 +47,15 @@ export const MusicReducer = (
         downloadStatus: action.downloadStatus,
       };
     case MusicActionType.UPDATE_TRACK:
-      const tracks = state.tracks;
-      const index = state.tracks.findIndex(
-        (track) => track.url === action.updatedTrack.url
-      );
-      tracks[index] = action.updatedTrack;
+      const index = state.tracks.findIndex((track) => track.url === action.updatedTrack.url);
+      state.tracks[index] = action.updatedTrack;
       return {
         ...state,
-        tracks,
-      };
-    case MusicActionType.DOWNLOAD_TRACKS:
-      let newState: DownloadStatusEnum = state.downloadStatus;
-      if (state.downloadStatus === DownloadStatusEnum.WAITING_FOR_START) {
-        newState = DownloadStatusEnum.PROCESSING;
-        const tracksToDownload = state.tracks.filter(
-          (track) =>
-            track.selected &&
-            track.downloadStatus === DownloadStatusEnum.WAITING_FOR_START
-        );
-        downloadTracksReducer(
-          tracksToDownload,
-          action.dispatchMusicAction
-        ).catch((error) =>
-          // TODO: HANDLE PROMISE ERROR YA LAZY BUM
-          console.error('TODO: HANDLE PROMISE ERROR YA LAZY BUM', error)
-        );
-      }
-      return {
-        ...state,
-        downloadStatus: newState,
+        tracks: [...state.tracks],
       };
     case MusicActionType.RESET:
       return JSON.parse(JSON.stringify(initialMusicState));
     default:
-      throw Error(`Unknown music action: ${action}`);
+      throw Error(`Unknown music action: ${JSON.stringify(action)}`);
   }
 };

@@ -7,14 +7,10 @@ import { Button } from '@mui/material';
 import { grey } from '@mui/material/colors';
 
 interface TrackFileDownloadProps {
-  fileName: string;
-  file: Blob;
+  file: File;
 }
-export default function TrackFileDownload({
-  fileName,
-  file,
-}: TrackFileDownloadProps) {
-  const handleFileDownload = () => saveAs(file, fileName);
+export default function TrackFileDownload({ file }: TrackFileDownloadProps) {
+  const handleFileDownload = () => saveAs(file, file.name);
   const size = 60;
 
   return (
@@ -30,13 +26,8 @@ export default function TrackFileDownload({
     >
       <AudioFile sx={{ color: grey[500], width: size, height: size }} />
       <Box>
-        <Typography variant="body2">{fileName}</Typography>
-        <Button
-          variant="contained"
-          sx={{ mt: 1 }}
-          endIcon={<Download />}
-          onClick={handleFileDownload}
-        >
+        <Typography variant="body2">{file.name}</Typography>
+        <Button variant="contained" sx={{ mt: 1 }} endIcon={<Download />} onClick={handleFileDownload}>
           {TranslationConstants.BUTTONS.DOWNLOAD}
         </Button>
       </Box>

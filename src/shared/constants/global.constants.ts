@@ -19,6 +19,7 @@ export const GlobalConstants = {
   Music: {
     MAX_CONCURRENT_DOWNLOADS: 4,
     INTERMEDIATE_STATUSES: [DownloadStatusEnum.PROCESSING, DownloadStatusEnum.DOWNLOADING],
-    FINAL_STATUSES: [DownloadStatusEnum.FINISHED, DownloadStatusEnum.FAILED],
+    FINAL_STATUSES: [DownloadStatusEnum.FINISHED, DownloadStatusEnum.FAILED, DownloadStatusEnum.CANCELLED],
+    RETRYABLE_STATUSES: [DownloadStatusEnum.FAILED, DownloadStatusEnum.CANCELLED],
   },
 };

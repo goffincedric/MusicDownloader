@@ -1,15 +1,11 @@
 import { Fragment, useContext, useMemo } from 'react';
-import {
-  MusicContext,
-  MusicDispatchContext,
-} from '../../../shared/contexts/music/MusicContext';
+import { MusicContext, MusicDispatchContext } from '../../../shared/contexts/music/MusicContext';
 import { DownloadStatusEnum } from '../../../shared/enums/downloadStatusEnum';
 import { Divider } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { TranslationConstants } from '../../../shared/constants/translation.constants';
 import Box from '@mui/material/Box';
 import { Track } from '../../../shared/models/track';
-import { MusicActionType } from '../../../shared/contexts/music/MusicActions';
 import LinearProgressWithLabel from '../../../shared/components/LinearProgressWithLabel';
 import { Check, Settings } from '@mui/icons-material';
 import { StepsDispatchContext } from '../../../shared/contexts/steps/StepsContext';
@@ -18,45 +14,44 @@ import { GlobalConstants } from '../../../shared/constants/global.constants';
 import LoadingButtonCustomIcon from '../../../shared/components/LoadingButtonCustomIcon';
 import TrackProcessingList from '../lists/TrackProcessingList';
 import NavigationButtons from '../../../shared/components/NavigationButtons';
+import { DownloadWorker } from '../../../shared/workers/downloadWorker';
 
 export default function ProcessingStep() {
   const { tracks: _tracks, downloadStatus } = useContext(MusicContext);
   const dispatchMusicAction = useContext(MusicDispatchContext);
   const dispatchStepAction = useContext(StepsDispatchContext);
-  const selectedTracks = useMemo(
-    () => _tracks.filter((track) => track.selected),
-    [_tracks]
-  );
+
+  // Filter out tracks that were selected f or download
+  const selectedTracks = useMemo(() => _tracks.filter((track) => track.selected), [_tracks]);
+
+  // Move each track into respective list according to status
   const tracksToDownload: Track[] = [];
+  const tracksToRetry: Track[] = [];
   const downloadedTracks: Track[] = [];
   selectedTracks.forEach((track) => {
-    if (track.downloadStatus !== DownloadStatusEnum.FINISHED)
-      tracksToDownload.push(track);
-    else downloadedTracks.push(track);
+    if (track.downloadStatus === DownloadStatusEnum.FINISHED) downloadedTracks.push(track);
+    else if (track.downloadStatus === DownloadStatusEnum.FAILED) tracksToRetry.push(track);
+    else tracksToDownload.push(track);
   });
-  const totalProgress = useMemo(
-    () => selectedTracks.length * 100,
-    [selectedTracks.length]
+
+  // Calculate progress for progress bar
+  const countedTracks = useMemo(
+    () => selectedTracks.filter((track) => !GlobalConstants.Music.RETRYABLE_STATUSES.includes(track.downloadStatus)),
+    [selectedTracks]
   );
-  const currentProgress = selectedTracks.reduce(
-    (total, track) => total + track.downloadProgress,
-    0
-  );
+  const totalProgress = useMemo(() => countedTracks.length * 100, [countedTracks.length]);
+  const currentProgress = countedTracks.reduce((total, track) => total + track.downloadProgress, 0);
   const currentProgressPercentage = (currentProgress / totalProgress) * 100;
 
-  const handleStartVideoDownloads = () =>
-    dispatchMusicAction({
-      type: MusicActionType.DOWNLOAD_TRACKS,
-      dispatchMusicAction,
-    });
-
-  const onNext = () => dispatchStepAction({ type: StepActionType.PROGRESS });
-  const onBack = () => dispatchStepAction({ type: StepActionType.GO_BACK });
-
-  const downloadsFinished =
-    GlobalConstants.Music.FINAL_STATUSES.includes(downloadStatus);
+  // Calculate global download progress and set icon accordingly
+  const downloadsFinished = GlobalConstants.Music.FINAL_STATUSES.includes(downloadStatus);
   let ProcessingIcon = Settings;
   if (downloadsFinished) ProcessingIcon = Check;
+
+  // Create handlers
+  const handleStartVideoDownloads = () => DownloadWorker.addTracks(selectedTracks, dispatchMusicAction);
+  const onNext = () => dispatchStepAction({ type: StepActionType.PROGRESS });
+  const onBack = () => dispatchStepAction({ type: StepActionType.GO_BACK });
 
   return (
     <Fragment>
@@ -70,9 +65,7 @@ export default function ProcessingStep() {
             sx={{ ml: 1 }}
             onClick={handleStartVideoDownloads}
             disabled={downloadStatus !== DownloadStatusEnum.WAITING_FOR_START}
-            loading={GlobalConstants.Music.INTERMEDIATE_STATUSES.includes(
-              downloadStatus
-            )}
+            loading={GlobalConstants.Music.INTERMEDIATE_STATUSES.includes(downloadStatus)}
             loadingIcon={<Settings />}
             endIcon={<ProcessingIcon />}
             loadingPosition="end"
@@ -84,48 +77,39 @@ export default function ProcessingStep() {
       <Box
         mb={2}
         sx={{
-          display:
-            downloadStatus !== DownloadStatusEnum.WAITING_FOR_START
-              ? 'block'
-              : 'none',
+          display: downloadStatus !== DownloadStatusEnum.WAITING_FOR_START ? 'block' : 'none',
         }}
       >
         <LinearProgressWithLabel
-          variant={
-            downloadStatus === DownloadStatusEnum.PROCESSING
-              ? 'indeterminate'
-              : 'determinate'
-          }
+          variant={downloadStatus === DownloadStatusEnum.PROCESSING ? 'indeterminate' : 'determinate'}
           value={currentProgressPercentage}
         />
       </Box>
       <Divider />
-      <Typography variant="h6" mt={2} mb={2}>
-        {TranslationConstants.LABELS.PENDING_DOWNLOADS}
-      </Typography>
       <TrackProcessingList
         tracks={tracksToDownload}
+        title={TranslationConstants.LABELS.PENDING_DOWNLOADS}
         emptyListMessage={TranslationConstants.LABELS.NO_PENDING_DOWNLOADS}
-      />
-      <NavigationButtons
-        onBack={onBack}
-        onNext={onNext}
-        canProgress={downloadsFinished}
-        gutterBottom
-      />
+      ></TrackProcessingList>
+      <NavigationButtons onBack={onBack} onNext={onNext} canProgress={downloadsFinished} gutterBottom />
       <Divider />
-      <Typography variant="h6" mt={2} mb={2}>
-        {TranslationConstants.LABELS.FINISHED_DOWNLOADS}
-      </Typography>
+      {tracksToRetry.length > 0 && (
+        <Fragment>
+          <TrackProcessingList
+            tracks={tracksToRetry}
+            title={TranslationConstants.LABELS.FAILED_DOWNLOADS}
+            emptyListMessage={TranslationConstants.LABELS.NO_FAILED_DOWNLOADS}
+          ></TrackProcessingList>
+          <NavigationButtons onBack={onBack} onNext={onNext} canProgress={downloadsFinished} gutterBottom />
+          <Divider />
+        </Fragment>
+      )}
       <TrackProcessingList
         tracks={downloadedTracks}
+        title={TranslationConstants.LABELS.FINISHED_DOWNLOADS}
         emptyListMessage={TranslationConstants.LABELS.NO_FINISHED_DOWNLOADS}
       ></TrackProcessingList>
-      <NavigationButtons
-        onBack={onBack}
-        onNext={onNext}
-        canProgress={downloadsFinished}
-      />
+      <NavigationButtons onBack={onBack} onNext={onNext} canProgress={downloadsFinished} />
     </Fragment>
   );
 }

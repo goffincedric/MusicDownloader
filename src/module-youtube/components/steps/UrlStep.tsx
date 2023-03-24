@@ -23,6 +23,7 @@ Test data:
 const resolveYoutubeVideo = async (url: string): Promise<Track> => {
   const videoDetails = await VideoService.getYoutubeVideo(url);
   return new YoutubeTrack(
+    videoDetails.id!,
     videoDetails.authorName!,
     videoDetails.title!,
     videoDetails.url!,
@@ -34,6 +35,7 @@ const resolveYoutubePlaylist = async (url: string): Promise<Track[]> => {
   return playlistDetails.tracks!.map(
     (playlistVideo) =>
       new YoutubeTrack(
+        playlistVideo.id!,
         playlistVideo.authorName!,
         playlistVideo.title!,
         playlistVideo.url!,
