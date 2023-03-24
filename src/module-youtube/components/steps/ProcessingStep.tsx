@@ -1,7 +1,7 @@
 import { Fragment, useContext, useMemo } from 'react';
 import { MusicContext, MusicDispatchContext } from '../../../shared/contexts/music/MusicContext';
 import { DownloadStatusEnum } from '../../../shared/enums/downloadStatusEnum';
-import { Divider } from '@mui/material';
+import { Divider, Stack } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { TranslationConstants } from '../../../shared/constants/translation.constants';
 import Box from '@mui/material/Box';
@@ -60,18 +60,7 @@ export default function ProcessingStep() {
           {TranslationConstants.LABELS.PROCESSING_STEP_TITLE}
         </Typography>
         <Box sx={{ display: 'flex', justifyContent: 'flex-end' }} mb={2}>
-          <LoadingButtonCustomIcon
-            variant="contained"
-            sx={{ ml: 1 }}
-            onClick={handleStartVideoDownloads}
-            disabled={downloadStatus !== DownloadStatusEnum.WAITING_FOR_START}
-            loading={GlobalConstants.Music.INTERMEDIATE_STATUSES.includes(downloadStatus)}
-            loadingIcon={<Settings />}
-            endIcon={<ProcessingIcon />}
-            loadingPosition="end"
-          >
-            {TranslationConstants.BUTTONS[downloadStatus]}
-          </LoadingButtonCustomIcon>
+          <NavigationButtons onBack={onBack} onNext={onNext} canProgress={downloadsFinished} />
         </Box>
       </Box>
       <Box
@@ -85,13 +74,29 @@ export default function ProcessingStep() {
           value={currentProgressPercentage}
         />
       </Box>
-      <Divider />
+      <Divider sx={{ mb: 2 }} />
+      <Stack direction="row" justifyContent="space-between">
+        <Typography>{TranslationConstants.LABELS.PENDING_DOWNLOADS}</Typography>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end' }} mb={2}>
+          <LoadingButtonCustomIcon
+            variant="contained"
+            sx={{ ml: 1 }}
+            onClick={handleStartVideoDownloads}
+            disabled={downloadStatus !== DownloadStatusEnum.WAITING_FOR_START}
+            loading={GlobalConstants.Music.INTERMEDIATE_STATUSES.includes(downloadStatus)}
+            loadingIcon={<Settings />}
+            endIcon={<ProcessingIcon />}
+            loadingPosition="end"
+          >
+            {TranslationConstants.BUTTONS[downloadStatus]}
+          </LoadingButtonCustomIcon>
+        </Box>
+      </Stack>
       <TrackProcessingList
         tracks={tracksToDownload}
-        title={TranslationConstants.LABELS.PENDING_DOWNLOADS}
         emptyListMessage={TranslationConstants.LABELS.NO_PENDING_DOWNLOADS}
       ></TrackProcessingList>
-      <NavigationButtons onBack={onBack} onNext={onNext} canProgress={downloadsFinished} gutterBottom />
+      <NavigationButtons onBack={onBack} onNext={onNext} canProgress={downloadsFinished} gutterTop gutterBottom />
       <Divider />
       {tracksToRetry.length > 0 && (
         <Fragment>
@@ -100,7 +105,7 @@ export default function ProcessingStep() {
             title={TranslationConstants.LABELS.FAILED_DOWNLOADS}
             emptyListMessage={TranslationConstants.LABELS.NO_FAILED_DOWNLOADS}
           ></TrackProcessingList>
-          <NavigationButtons onBack={onBack} onNext={onNext} canProgress={downloadsFinished} gutterBottom />
+          <NavigationButtons onBack={onBack} onNext={onNext} canProgress={downloadsFinished} gutterTop gutterBottom />
           <Divider />
         </Fragment>
       )}
@@ -109,7 +114,7 @@ export default function ProcessingStep() {
         title={TranslationConstants.LABELS.FINISHED_DOWNLOADS}
         emptyListMessage={TranslationConstants.LABELS.NO_FINISHED_DOWNLOADS}
       ></TrackProcessingList>
-      <NavigationButtons onBack={onBack} onNext={onNext} canProgress={downloadsFinished} />
+      <NavigationButtons onBack={onBack} onNext={onNext} canProgress={downloadsFinished} gutterTop />
     </Fragment>
   );
 }

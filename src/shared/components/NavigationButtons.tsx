@@ -14,6 +14,7 @@ interface NavigationButtonProps {
   showBackButton?: boolean;
   showNextButton?: boolean;
   gutterBottom?: boolean;
+  gutterTop?: boolean;
   fullHeight?: boolean;
 }
 export default function NavigationButtons({
@@ -25,6 +26,7 @@ export default function NavigationButtons({
   showBackButton = true,
   showNextButton = true,
   gutterBottom = false,
+  gutterTop = false,
   fullHeight = false,
 }: NavigationButtonProps) {
   return (
@@ -34,10 +36,11 @@ export default function NavigationButtons({
           display: 'flex',
           justifyContent: 'flex-end',
           mb: gutterBottom ? 2 : 0,
+          mt: gutterTop ? 3 : 0,
         }}
       >
         {showBackButton && (
-          <Button variant="text" onClick={onBack} sx={{ mt: 3, ml: 1 }}>
+          <Button variant="text" onClick={onBack}>
             {TranslationConstants.BUTTONS.BACK}
           </Button>
         )}
@@ -46,7 +49,7 @@ export default function NavigationButtons({
             type={isSubmitButton ? 'submit' : 'button'}
             variant="contained"
             onClick={onNext}
-            sx={{ mt: 3, ml: 1 }}
+            sx={{ ml: 1 }}
             disabled={!canProgress}
             loading={isProgressing}
             endIcon={<NavigateNext />}

@@ -10,7 +10,7 @@ import { DownloadWorker } from '../../../shared/workers/downloadWorker';
 
 interface TrackProcessingListProps {
   tracks: Track[];
-  title: string;
+  title?: string;
   emptyListMessage: string;
 }
 
@@ -18,9 +18,11 @@ export default function TrackProcessingList({ tracks, title, emptyListMessage }:
   const dispatchMusicAction = useContext(MusicDispatchContext);
   return (
     <Fragment>
-      <Typography variant="h6" mt={2} mb={2}>
-        {title}
-      </Typography>
+      {title && (
+        <Typography variant="h6" mt={2} mb={2}>
+          {title}
+        </Typography>
+      )}
       <Grid container spacing={3} justifyContent="center" mb={1}>
         {tracks.length ? (
           tracks.map((track, index) => (

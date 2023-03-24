@@ -1,13 +1,7 @@
 import Grid from '@mui/material/Grid';
 import { Track } from '../../../shared/models/track';
 import Box from '@mui/material/Box';
-import {
-  Button,
-  CardActions,
-  Checkbox,
-  Divider,
-  FormControlLabel,
-} from '@mui/material';
+import { Button, CardActions, Checkbox, Container, Divider, FormControlLabel } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { TranslationConstants } from '../../../shared/constants/translation.constants';
 import DynamicTrackCard from '../../containers/DynamicTrackCard';
@@ -41,9 +35,21 @@ export default function VideoSelectionForm({
           {TranslationConstants.LABELS.TRACK_CHOICE_STEP_TITLE}
         </Typography>
         <Box sx={{ display: 'flex', justifyContent: 'flex-end' }} mb={2}>
+          <NavigationButtons onBack={onBack} onNext={onNext} canProgress={canProgress} isProgressing={loading} gutterTop={false} />
+        </Box>
+      </Box>
+      <Divider sx={{ mb: 2 }} />
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'baseline',
+        }}
+      >
+        <Typography variant="h6">{TranslationConstants.LABELS.TRACK_CHOICE_STEP_SUB_TITLE}</Typography>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end' }} mb={2}>
           <Button
             variant={someUnselectedSelected ? 'contained' : 'text'}
-            sx={{ ml: 1 }}
             onClick={() => onToggleAllSelected(someUnselectedSelected)}
           >
             {someUnselectedSelected
@@ -51,25 +57,6 @@ export default function VideoSelectionForm({
               : TranslationConstants.BUTTONS.DESELECT_ALL}
           </Button>
         </Box>
-      </Box>
-      <Divider />
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'baseline',
-        }}
-        mb={2}
-      >
-        <Typography variant="h6">
-          {TranslationConstants.LABELS.TRACK_CHOICE_STEP_SUB_TITLE}
-        </Typography>
-        <NavigationButtons
-          onBack={onBack}
-          onNext={onNext}
-          canProgress={canProgress}
-          isProgressing={loading}
-        />
       </Box>
       <Grid container spacing={3} justifyContent="center">
         {tracks.length === 1 ? (
@@ -83,10 +70,7 @@ export default function VideoSelectionForm({
               <CardActions sx={{ width: '100%', px: 2 }}>
                 <FormControlLabel
                   control={
-                    <Checkbox
-                      checked={tracks[0].selected}
-                      onSelect={() => onCardSelected(tracks[0])}
-                    ></Checkbox>
+                    <Checkbox checked={tracks[0].selected} onSelect={() => onCardSelected(tracks[0])}></Checkbox>
                   }
                   label={TranslationConstants.LABELS.DOWNLOAD}
                 />
@@ -104,12 +88,7 @@ export default function VideoSelectionForm({
               >
                 <CardActions sx={{ width: '100%', px: 2 }}>
                   <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={track.selected}
-                        onSelect={() => onCardSelected(track)}
-                      ></Checkbox>
-                    }
+                    control={<Checkbox checked={track.selected} onSelect={() => onCardSelected(track)}></Checkbox>}
                     label={TranslationConstants.LABELS.DOWNLOAD}
                   />
                 </CardActions>
@@ -118,12 +97,7 @@ export default function VideoSelectionForm({
           ))
         )}
       </Grid>
-      <NavigationButtons
-        onBack={onBack}
-        onNext={onNext}
-        canProgress={canProgress}
-        isProgressing={loading}
-      />
+      <NavigationButtons onBack={onBack} onNext={onNext} canProgress={canProgress} isProgressing={loading} gutterTop />
     </Fragment>
   );
 }
