@@ -12,7 +12,6 @@ interface DynamicTrackCardProps {
   track: Track;
   coverPosition: 'left' | 'right' | 'top';
   isSelectable?: boolean;
-
   onCardSelected?: () => void;
 }
 

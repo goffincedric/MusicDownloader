@@ -66,6 +66,7 @@ export default function UrlForm({ onUrlSubmit, loading, disabled }: UrlFormProps
           showBackButton={false}
           canProgress={formState.isValid && !disabled}
           isProgressing={loading}
+          gutterTop
         ></NavigationButtons>
       </form>
     </Fragment>
