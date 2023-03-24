@@ -6,6 +6,7 @@ import { StepActionType } from '../../shared/contexts/steps/StepActions';
 import { FavoriteBorder, MusicNote } from '@mui/icons-material';
 import { MusicDispatchContext } from '../../shared/contexts/music/MusicContext';
 import { TranslationConstants } from '../../shared/constants/translation.constants';
+import { MusicActionType } from '../../shared/contexts/music/MusicActions';
 
 export function StepsCompleted() {
   const dispatchStepAction = useContext(StepsDispatchContext);
@@ -16,7 +17,10 @@ export function StepsCompleted() {
     width: size,
   };
 
-  const handleRestart = () => dispatchStepAction({ type: StepActionType.RESET, dispatchMusicAction });
+  const handleRestart = () => {
+    dispatchStepAction({ type: StepActionType.RESET });
+    dispatchMusicAction({ type: MusicActionType.RESET });
+  };
   return (
     <Box
       sx={{

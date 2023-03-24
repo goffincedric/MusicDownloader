@@ -1,21 +1,36 @@
 import axios, { AxiosProgressEvent, AxiosResponse } from 'axios';
-import { OpenAPI } from '../openapi';
+import { CancelablePromise, OpenAPI } from '../openapi';
+import { AxiosUtils } from '../../utils/axios.utils';
 
 export class VideoDownloadService {
   /**
    * @param url
    * @param onDownloadProgress
-   * @returns Downloaded blob file
+   * @returns Downloaded file
    */
   public static getYoutubeVideoDownload(
     url: string,
     onDownloadProgress: (progressEvent: AxiosProgressEvent) => void
-  ): Promise<AxiosResponse> {
-    return axios.get('/youtube/video/download', {
-      baseURL: OpenAPI.BASE,
-      params: { url },
-      responseType: 'blob',
-      onDownloadProgress,
+  ): CancelablePromise<File> {
+    return new CancelablePromise(async (resolve, reject, onCancel) => {
+      try {
+        if (!onCancel.isCancelled) {
+          // Create cancellation handler and token
+          const cancellationHandler = axios.CancelToken.source();
+          onCancel(() => cancellationHandler.cancel('Cancellation requested'));
+          // Await response with cancellation token
+          const response = await axios.get('/youtube/video/download', {
+            baseURL: OpenAPI.BASE,
+            params: { url },
+            responseType: 'blob',
+            onDownloadProgress,
+            cancelToken: cancellationHandler.token,
+          });
+          return resolve(new File([response.data], AxiosUtils.getFilenameFromHeaders(response)));
+        }
+      } catch (error) {
+        reject(error);
+      }
     });
   }
 }

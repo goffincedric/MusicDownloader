@@ -33,7 +33,6 @@ export const StepsReducer = (
         currentStep: state.currentStep - 1,
       };
     case StepActionType.RESET:
-      action.dispatchMusicAction({ type: MusicActionType.RESET });
       return JSON.parse(JSON.stringify(initialStepsState));
     default:
       throw Error(`Unknown music action: ${action}`);
