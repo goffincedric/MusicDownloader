@@ -7,19 +7,14 @@ import * as joi from 'joi';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { RegexConstants } from '../../../shared/constants/regex.constants';
 import Typography from '@mui/material/Typography';
-import NavigationButtons from '../../../shared/components/NavigationButtons';
-
-interface UrlFormProps {
-  onUrlSubmit: (url: string) => void;
-  disabled?: boolean;
-  loading?: boolean;
-}
+import NavigationButtons from '../../../shared/components/button/NavigationButtons';
+import { FormProps } from '../../../shared/models/form';
 
 interface UrlFormValues {
   url: string;
 }
 
-export default function UrlForm({ onUrlSubmit, loading, disabled }: UrlFormProps) {
+export default function UrlForm({ onSubmit, loading, disabled }: FormProps<string>) {
   const schema = joi.object({
     url: joi
       .string()
@@ -37,14 +32,14 @@ export default function UrlForm({ onUrlSubmit, loading, disabled }: UrlFormProps
   });
   const { errors } = formState;
 
-  const handleUrlSubmit = (formValues: UrlFormValues) => onUrlSubmit(formValues.url);
+  const handleFormSubmit = (formValues: UrlFormValues) => onSubmit(formValues.url);
 
   return (
     <Fragment>
       <Typography variant="h6" gutterBottom>
         {TranslationConstants.LABELS.URL_STEP_TITLE}
       </Typography>
-      <form onSubmit={handleSubmit(handleUrlSubmit)}>
+      <form onSubmit={handleSubmit(handleFormSubmit)}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <TextField

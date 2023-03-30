@@ -2,7 +2,12 @@ import { DownloadStatusEnum } from '../enums/downloadStatusEnum';
 import { DarkThemeMode } from '../enums/darkThemeModeEnum';
 
 export const TranslationConstants = {
+  GENERAL: {
+    APP_TITLE: 'MUSIC DOWNLOADER',
+  },
   LABELS: {
+    LOGIN_TITLE: 'Log in',
+    LOGIN_TEXT: 'Authenticate yourself below with the provided API key.',
     URL_STEP_TITLE: 'Youtube url',
     TRACK_CHOICE_STEP_TITLE: 'Track choice',
     TRACK_CHOICE_STEP_SUB_TITLE: 'Choose tracks to download',
@@ -10,6 +15,7 @@ export const TranslationConstants = {
     DOWNLOAD_STEP_TITLE: 'Download',
     DOWNLOAD: 'Download',
     URL: 'Url',
+    API_KEY: 'Api key',
     [DownloadStatusEnum.WAITING_FOR_START]: 'Waiting to start download...',
     [DownloadStatusEnum.PROCESSING]: 'Processing track...',
     [DownloadStatusEnum.DOWNLOADING]: 'Downloading track...',
@@ -29,6 +35,7 @@ export const TranslationConstants = {
   },
   PLACEHOLDERS: {
     YOUTUBE_URL: 'Enter your youtube video or playlist url here...',
+    API_KEY: 'Enter your API key here...',
   },
   BUTTONS: {
     NEXT: 'Next',
@@ -48,5 +55,8 @@ export const TranslationConstants = {
     [DarkThemeMode.LIGHT]: 'Light',
     [DarkThemeMode.NATIVE]: 'System',
     [DarkThemeMode.DARK]: 'Dark',
+    LOGIN: 'Login',
+    LOGOUT: 'Logout',
+    SET_API_KEY: 'Set api key',
   },
 };

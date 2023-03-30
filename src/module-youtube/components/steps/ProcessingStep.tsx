@@ -6,14 +6,14 @@ import Typography from '@mui/material/Typography';
 import { TranslationConstants } from '../../../shared/constants/translation.constants';
 import Box from '@mui/material/Box';
 import { Track } from '../../../shared/models/track';
-import LinearProgressWithLabel from '../../../shared/components/LinearProgressWithLabel';
+import LinearProgressWithLabel from '../../../shared/components/progress/LinearProgressWithLabel';
 import { Check, Settings } from '@mui/icons-material';
 import { StepsDispatchContext } from '../../../shared/contexts/steps/StepsContext';
 import { StepActionType } from '../../../shared/contexts/steps/StepActions';
 import { GlobalConstants } from '../../../shared/constants/global.constants';
-import LoadingButtonCustomIcon from '../../../shared/components/LoadingButtonCustomIcon';
+import LoadingButtonCustomIcon from '../../../shared/components/button/LoadingButtonCustomIcon';
 import TrackProcessingList from '../lists/TrackProcessingList';
-import NavigationButtons from '../../../shared/components/NavigationButtons';
+import NavigationButtons from '../../../shared/components/button/NavigationButtons';
 import { DownloadWorker } from '../../../shared/workers/downloadWorker';
 
 export default function ProcessingStep() {

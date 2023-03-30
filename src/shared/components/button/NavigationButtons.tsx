@@ -1,9 +1,9 @@
 import { Button } from '@mui/material';
-import { TranslationConstants } from '../constants/translation.constants';
+import { TranslationConstants } from '../../constants/translation.constants';
 import { LoadingButton } from '@mui/lab';
 import { NavigateNext } from '@mui/icons-material';
 import Box from '@mui/material/Box';
-import { ConditionalWrapper } from './hoc/ConditionalWrapper';
+import { ConditionalWrapper } from '../hoc/ConditionalWrapper';
 
 interface NavigationButtonProps {
   onBack?: () => void;

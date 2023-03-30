@@ -1,30 +1,29 @@
 import './App.scss';
-import React, { useContext } from 'react';
-import YoutubeSteps from './module-youtube/components/YoutubeSteps';
-import CssBaseline from '@mui/material/CssBaseline';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import TitleBar from './components/TitleBar';
-import { StepsProvider } from './shared/contexts/steps/StepsContext';
-import { MusicProvider } from './shared/contexts/music/MusicContext';
-import { DarkThemeContext } from './shared/contexts/theme/DarkThemeContext';
-import { Box } from '@mui/material';
+import React, { useContext, useEffect } from 'react';
+import Layout from './components/Layout';
+import { RouterProvider } from 'react-router-dom';
+import { router } from './router/router';
+import {
+  AuthenticationContext,
+  AuthenticationDispatchContext,
+} from './shared/contexts/authentication/AuthenticationContext';
+import { AxiosUtils } from './shared/utils/axios.utils';
 
 function App() {
-  // Theme logic
-  const { themeOptions } = useContext(DarkThemeContext);
-  const theme = React.useMemo(() => createTheme(themeOptions), [themeOptions]);
+  // Redirect to login page if not authenticated
+  const { authenticated } = useContext(AuthenticationContext);
+  useEffect(() => {
+    if (!authenticated) router.navigate('/login');
+  }, [authenticated]);
+
+  // Add axios interceptor on application launch
+  const dispatchAuthenticationAction = useContext(AuthenticationDispatchContext);
+  useEffect(() => AxiosUtils.addInterceptor(dispatchAuthenticationAction), []);
+  // Render application
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <TitleBar />
-      <Box mt={10}>
-        <StepsProvider>
-          <MusicProvider>
-            <YoutubeSteps />
-          </MusicProvider>
-        </StepsProvider>
-      </Box>
-    </ThemeProvider>
+    <Layout>
+      <RouterProvider router={router}></RouterProvider>
+    </Layout>
   );
 }
 
