@@ -81,5 +81,5 @@ export default function UrlStep() {
     }
   };
 
-  return <UrlForm onUrlSubmit={onUrlSubmit} loading={formLoading} />;
+  return <UrlForm onSubmit={onUrlSubmit} loading={formLoading} />;
 }
