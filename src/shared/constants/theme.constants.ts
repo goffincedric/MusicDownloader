@@ -9,6 +9,14 @@ export const ThemeConstants = {
           enableColorScheme: true,
         },
       },
+      MuiMenuItem: {
+        styleOverrides: {
+          root: {
+            paddingTop: '10px',
+            paddingBottom: '10px',
+          }
+        }
+      },
       MuiButtonBase: {
         defaultProps: {
           disableTouchRipple: true,
@@ -440,6 +448,14 @@ export const ThemeConstants = {
         defaultProps: {
           enableColorScheme: true,
         },
+      },
+      MuiMenuItem: {
+        styleOverrides: {
+          root: {
+            paddingTop: '10px',
+            paddingBottom: '10px',
+          }
+        }
       },
       MuiButtonBase: {
         defaultProps: {

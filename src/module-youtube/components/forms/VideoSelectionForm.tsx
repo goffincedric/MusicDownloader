@@ -5,7 +5,7 @@ import { Button, CardActions, Checkbox, Container, Divider, FormControlLabel } f
 import Typography from '@mui/material/Typography';
 import { TranslationConstants } from '../../../shared/constants/translation.constants';
 import DynamicTrackCard from '../../containers/DynamicTrackCard';
-import NavigationButtons from '../../../shared/components/NavigationButtons';
+import NavigationButtons from '../../../shared/components/button/NavigationButtons';
 import { Fragment } from 'react';
 
 interface VideoSelectionFormProps {

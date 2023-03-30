@@ -21,6 +21,7 @@ export class VideoDownloadService {
           // Await response with cancellation token
           const response = await axios.get('/youtube/video/download', {
             baseURL: OpenAPI.BASE,
+            headers: AxiosUtils.getAuthHeader(),
             params: { url },
             responseType: 'blob',
             onDownloadProgress,

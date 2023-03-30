@@ -6,7 +6,7 @@ import { MusicContext } from '../../../shared/contexts/music/MusicContext';
 import TrackDownloadList from '../lists/TrackDownloadList';
 import { DownloadStatusEnum } from '../../../shared/enums/downloadStatusEnum';
 import TracksBulkDownload from '../lists/TracksBulkDownload';
-import NavigationButtons from '../../../shared/components/NavigationButtons';
+import NavigationButtons from '../../../shared/components/button/NavigationButtons';
 import { StepActionType } from '../../../shared/contexts/steps/StepActions';
 import { StepsDispatchContext } from '../../../shared/contexts/steps/StepsContext';
 
