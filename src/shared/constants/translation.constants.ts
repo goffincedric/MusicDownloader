@@ -15,6 +15,7 @@ export const TranslationConstants = {
     DOWNLOAD_STEP_TITLE: 'Download',
     DOWNLOAD: 'Download',
     URL: 'Url',
+    CONTAINER: 'Desired format',
     API_KEY: 'Api key',
     [DownloadStatusEnum.WAITING_FOR_START]: 'Waiting to start download...',
     [DownloadStatusEnum.PROCESSING]: 'Processing track...',
@@ -32,9 +33,12 @@ export const TranslationConstants = {
     NO_DOWNLOADABLE_TRACKS: 'No tracks ready for download...',
     STEPS_COMPLETED_THANKS: 'Thanks for using our website!',
     STEPS_COMPLETED_RETRY: 'Want to download another video/playlist? Click the button below to start over!',
+    MP3: 'mp3',
+    OGG: 'ogg',
   },
   PLACEHOLDERS: {
     YOUTUBE_URL: 'Enter your youtube video or playlist url here...',
+    CONTAINER: 'Select your desired audio format',
     API_KEY: 'Enter your API key here...',
   },
   BUTTONS: {

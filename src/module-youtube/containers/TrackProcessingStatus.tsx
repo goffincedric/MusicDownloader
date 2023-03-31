@@ -12,12 +12,13 @@ interface TrackProcessingStatusProps {
   onRetry: () => void;
   onCancel: () => void;
 }
+
 export default function TrackProcessingStatus({
   downloadStatus,
   downloadProgress,
   onRetry,
   onCancel,
-}: TrackProcessingStatusProps) {
+}: TrackProcessingStatusProps): JSX.Element {
   const size = 50;
   const sizeSmall = 40;
   let content: JSX.Element | null = null;
@@ -80,14 +81,12 @@ export default function TrackProcessingStatus({
   }
 
   return (
-    downloadStatus !== DownloadStatusEnum.WAITING_FOR_START && (
-      <Stack direction="row" alignItems="center" gap={2} flexWrap="wrap" pb={2} px={2}>
-        {content && <Box sx={{ height: size, width: size }}>{content}</Box>}
-        <Stack direction="row" alignItems="center" gap={2}>
-          <Typography variant="body2">{TranslationConstants.LABELS[downloadStatus]}</Typography>
-          {action}
-        </Stack>
+    <Stack direction="row" alignItems="center" gap={2} flexWrap="wrap" pb={2} px={2}>
+      {content && <Box sx={{ height: size, width: size }}>{content}</Box>}
+      <Stack direction="row" alignItems="center" gap={2}>
+        <Typography variant="body2">{TranslationConstants.LABELS[downloadStatus]}</Typography>
+        {action}
       </Stack>
-    )
+    </Stack>
   );
 }

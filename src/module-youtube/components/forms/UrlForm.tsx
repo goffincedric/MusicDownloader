@@ -9,12 +9,15 @@ import { RegexConstants } from '../../../shared/constants/regex.constants';
 import Typography from '@mui/material/Typography';
 import NavigationButtons from '../../../shared/components/button/NavigationButtons';
 import { FormProps } from '../../../shared/models/form';
+import MenuItem from '@mui/material/MenuItem';
+import { MusicConstants } from '../../../shared/constants/music.constants';
 
-interface UrlFormValues {
+export interface UrlFormValues {
   url: string;
+  container: string;
 }
 
-export default function UrlForm({ onSubmit, loading, disabled }: FormProps<string>) {
+export default function UrlForm({ onSubmit, loading, disabled }: FormProps<UrlFormValues>) {
   const schema = joi.object({
     url: joi
       .string()
@@ -24,15 +27,16 @@ export default function UrlForm({ onSubmit, loading, disabled }: FormProps<strin
       .messages({
         'string.pattern.base': `"${TranslationConstants.LABELS.URL}" must be a valid youtube video, playlist or album url`,
       }),
+    container: joi.string().required(),
   });
   const { register, formState, handleSubmit } = useForm<UrlFormValues>({
-    defaultValues: { url: '' },
+    defaultValues: { url: '', container: MusicConstants.CONTAINERS.MP3 },
     resolver: joiResolver(schema),
     mode: 'onChange',
   });
   const { errors } = formState;
 
-  const handleFormSubmit = (formValues: UrlFormValues) => onSubmit(formValues.url);
+  const handleFormSubmit = (formValues: UrlFormValues) => onSubmit(formValues);
 
   return (
     <Fragment>
@@ -41,7 +45,7 @@ export default function UrlForm({ onSubmit, loading, disabled }: FormProps<strin
       </Typography>
       <form onSubmit={handleSubmit(handleFormSubmit)}>
         <Grid container spacing={3}>
-          <Grid item xs={12}>
+          <Grid item xs={12} md={9}>
             <TextField
               required
               label={TranslationConstants.LABELS.URL}
@@ -54,6 +58,22 @@ export default function UrlForm({ onSubmit, loading, disabled }: FormProps<strin
               {...register('url')}
               disabled={disabled || loading}
             />
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <TextField
+              required
+              select
+              defaultValue={MusicConstants.CONTAINERS.MP3}
+              label={TranslationConstants.LABELS.CONTAINER}
+              placeholder={TranslationConstants.PLACEHOLDERS.CONTAINER}
+              fullWidth
+              variant="standard"
+              {...register('container')}
+              disabled={disabled || loading}
+            >
+              <MenuItem value={MusicConstants.CONTAINERS.MP3}>{TranslationConstants.LABELS.MP3}</MenuItem>
+              <MenuItem value={MusicConstants.CONTAINERS.OGG}>{TranslationConstants.LABELS.OGG}</MenuItem>
+            </TextField>
           </Grid>
         </Grid>
         <NavigationButtons

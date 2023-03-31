@@ -10,7 +10,7 @@ import { CancelError } from '../services/openapi';
 const queue: Track[] = [];
 let workerCount = 0;
 
-function addTracks(tracks: Track[], dispatchMusicAction: Dispatch<MusicAction>) {
+function addTracks(tracks: Track[], container: string, dispatchMusicAction: Dispatch<MusicAction>) {
   // Set downloaderStatus to processing if not processing yet
   if (workerCount === 0)
     dispatchMusicAction({
@@ -25,7 +25,7 @@ function addTracks(tracks: Track[], dispatchMusicAction: Dispatch<MusicAction>) 
       return track;
     })
   );
-  updateWorkers(dispatchMusicAction);
+  updateWorkers(container, dispatchMusicAction);
 }
 
 function cancelTrackDownload(track: Track) {
@@ -34,11 +34,11 @@ function cancelTrackDownload(track: Track) {
   if (index >= 0) queue.splice(index, 1);
 }
 
-function updateWorkers(dispatchMusicAction: Dispatch<MusicAction>) {
+function updateWorkers(container: string, dispatchMusicAction: Dispatch<MusicAction>) {
   while (queue.length > 0 && workerCount < GlobalConstants.Music.MAX_CONCURRENT_DOWNLOADS) {
     // Add worker
     workerCount++;
-    downloadWorker(dispatchMusicAction).then(
+    downloadWorker(container, dispatchMusicAction).then(
       () => {
         // Decrease worker count
         workerCount--;
@@ -54,14 +54,14 @@ function updateWorkers(dispatchMusicAction: Dispatch<MusicAction>) {
         console.warn('Worker crashed, restarting');
         // Decrease worker count
         workerCount--;
-        updateWorkers(dispatchMusicAction);
+        updateWorkers(container, dispatchMusicAction);
       }
     );
   }
 }
 
-type DownloadWorker = (dispatchMusicAction: Dispatch<MusicAction>) => Promise<void>;
-const downloadWorker: DownloadWorker = async (dispatchMusicAction: Dispatch<MusicAction>) => {
+type DownloadWorker = (container: string, dispatchMusicAction: Dispatch<MusicAction>) => Promise<void>;
+const downloadWorker: DownloadWorker = async (container: string, dispatchMusicAction: Dispatch<MusicAction>) => {
   // Loop until no tracks are left in queue
   while (queue.length > 0) {
     // Get first track in queue
@@ -73,6 +73,7 @@ const downloadWorker: DownloadWorker = async (dispatchMusicAction: Dispatch<Musi
       // Start downloading video
       trackToDownload.downloadPromise = VideoDownloadService.getYoutubeVideoDownload(
         trackToDownload.url,
+        container,
         (progressEvent) => handleDownloadProgress(trackToDownload, progressEvent, dispatchMusicAction)
       );
       // Update track before awaiting download

@@ -1,4 +1,4 @@
-import UrlForm from '../forms/UrlForm';
+import UrlForm, { UrlFormValues } from '../forms/UrlForm';
 import { useContext, useState } from 'react';
 import { MusicDispatchContext } from '../../../shared/contexts/music/MusicContext';
 import { MusicActionType } from '../../../shared/contexts/music/MusicActions';
@@ -61,14 +61,18 @@ export default function UrlStep() {
         throw new Error('Unknown url type for url: ' + url);
     }
   };
-  const onUrlSubmit = async (url: string) => {
-    dispatchMusicAction({ type: MusicActionType.SET_URL, url });
+  const onUrlSubmit = async (requestedAudio: UrlFormValues) => {
+    dispatchMusicAction({
+      type: MusicActionType.SET_URL,
+      url: requestedAudio.url,
+      container: requestedAudio.container,
+    });
     // Set loading
     setFormLoading(true);
 
     try {
       // Resolve url
-      const tracks = await resolveUrlToTracks(url);
+      const tracks = await resolveUrlToTracks(requestedAudio.url);
       // Set tracks and continue to next step
       dispatchMusicAction({ type: MusicActionType.SET_TRACKS, tracks });
       dispatchStepAction({ type: StepActionType.PROGRESS });
