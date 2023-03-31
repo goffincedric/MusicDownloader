@@ -1,5 +1,5 @@
 import { Fragment, useState } from 'react';
-import IconButton, { IconButtonProps } from '@mui/material/IconButton';
+import IconButton from '@mui/material/IconButton';
 import { Settings } from '@mui/icons-material';
 import { Divider, SwipeableDrawer } from '@mui/material';
 import Container from '@mui/material/Container';

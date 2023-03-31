@@ -1,4 +1,4 @@
-import { AuthenticateAction, AuthenticationAction, AuthenticationActionType } from './AuthenticationActions';
+import { AuthenticationAction, AuthenticationActionType } from './AuthenticationActions';
 import { User } from '../../models/user';
 import { AuthenticationStorage } from '../../storage/authentication/AuthenticationStorage';
 import { UserStorage } from '../../storage/user/UserStorage';

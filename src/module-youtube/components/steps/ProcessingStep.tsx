@@ -12,12 +12,12 @@ import { StepsDispatchContext } from '../../../shared/contexts/steps/StepsContex
 import { StepActionType } from '../../../shared/contexts/steps/StepActions';
 import { GlobalConstants } from '../../../shared/constants/global.constants';
 import LoadingButtonCustomIcon from '../../../shared/components/button/LoadingButtonCustomIcon';
-import TrackProcessingList from '../lists/TrackProcessingList';
+import TrackProcessingList from '../../containers/TrackProcessingList';
 import NavigationButtons from '../../../shared/components/button/NavigationButtons';
 import { DownloadWorker } from '../../../shared/workers/downloadWorker';
 
 export default function ProcessingStep() {
-  const { tracks: _tracks, downloadStatus } = useContext(MusicContext);
+  const { container, tracks: _tracks, downloadStatus } = useContext(MusicContext);
   const dispatchMusicAction = useContext(MusicDispatchContext);
   const dispatchStepAction = useContext(StepsDispatchContext);
 
@@ -49,9 +49,11 @@ export default function ProcessingStep() {
   if (downloadsFinished) ProcessingIcon = Check;
 
   // Create handlers
-  const handleStartVideoDownloads = () => DownloadWorker.addTracks(selectedTracks, dispatchMusicAction);
+  const handleStartVideoDownloads = () => DownloadWorker.addTracks(selectedTracks, container!, dispatchMusicAction);
   const onNext = () => dispatchStepAction({ type: StepActionType.PROGRESS });
   const onBack = () => dispatchStepAction({ type: StepActionType.GO_BACK });
+  const onRetry = (track: Track) => DownloadWorker.addTracks([track], container!, dispatchMusicAction);
+  const onCancel = (track: Track) => DownloadWorker.cancelTrackDownload(track);
 
   return (
     <Fragment>
@@ -95,6 +97,8 @@ export default function ProcessingStep() {
       <TrackProcessingList
         tracks={tracksToDownload}
         emptyListMessage={TranslationConstants.LABELS.NO_PENDING_DOWNLOADS}
+        onRetry={onRetry}
+        onCancel={onCancel}
       ></TrackProcessingList>
       <NavigationButtons onBack={onBack} onNext={onNext} canProgress={downloadsFinished} gutterTop gutterBottom />
       <Divider />
@@ -104,6 +108,8 @@ export default function ProcessingStep() {
             tracks={tracksToRetry}
             title={TranslationConstants.LABELS.FAILED_DOWNLOADS}
             emptyListMessage={TranslationConstants.LABELS.NO_FAILED_DOWNLOADS}
+            onRetry={onRetry}
+            onCancel={onCancel}
           ></TrackProcessingList>
           <NavigationButtons onBack={onBack} onNext={onNext} canProgress={downloadsFinished} gutterTop gutterBottom />
           <Divider />
@@ -113,6 +119,8 @@ export default function ProcessingStep() {
         tracks={downloadedTracks}
         title={TranslationConstants.LABELS.FINISHED_DOWNLOADS}
         emptyListMessage={TranslationConstants.LABELS.NO_FINISHED_DOWNLOADS}
+        onRetry={onRetry}
+        onCancel={onCancel}
       ></TrackProcessingList>
       <NavigationButtons onBack={onBack} onNext={onNext} canProgress={downloadsFinished} gutterTop />
     </Fragment>

@@ -27,5 +27,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 /*
 * TODO:
 *  - Save theme preference to localStorage
-*  -
+*  - Add icon svg to menu bar + change color depending on theme
+*  - Add PWA functionality
+*  - Add error toasts
 * */
