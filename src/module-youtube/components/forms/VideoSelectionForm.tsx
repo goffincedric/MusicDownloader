@@ -1,7 +1,7 @@
 import Grid from '@mui/material/Grid';
 import { Track } from '../../../shared/models/track';
 import Box from '@mui/material/Box';
-import { Button, CardActions, Checkbox, Container, Divider, FormControlLabel } from '@mui/material';
+import { Button, CardActions, Checkbox, Divider, FormControlLabel } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { TranslationConstants } from '../../../shared/constants/translation.constants';
 import DynamicTrackCard from '../../containers/DynamicTrackCard';

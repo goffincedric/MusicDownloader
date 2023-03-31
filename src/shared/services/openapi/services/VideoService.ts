@@ -32,16 +32,21 @@ url?: string,
     }
 
     /**
+     * @param container 
      * @param url 
      * @returns binary Success
      * @throws ApiError
      */
     public static getYoutubeVideoDownload(
+container: string,
 url?: string,
 ): CancelablePromise<Blob> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/youtube/video/download',
+            url: '/youtube/video/download/{container}',
+            path: {
+                'container': container,
+            },
             query: {
                 'url': url,
             },

@@ -1,4 +1,4 @@
-import axios, { AxiosProgressEvent, AxiosResponse } from 'axios';
+import axios, { AxiosProgressEvent } from 'axios';
 import { CancelablePromise, OpenAPI } from '../openapi';
 import { AxiosUtils } from '../../utils/axios.utils';
 
@@ -10,6 +10,7 @@ export class VideoDownloadService {
    */
   public static getYoutubeVideoDownload(
     url: string,
+    container: string,
     onDownloadProgress: (progressEvent: AxiosProgressEvent) => void
   ): CancelablePromise<File> {
     return new CancelablePromise(async (resolve, reject, onCancel) => {
@@ -19,7 +20,7 @@ export class VideoDownloadService {
           const cancellationHandler = axios.CancelToken.source();
           onCancel(() => cancellationHandler.cancel('Cancellation requested'));
           // Await response with cancellation token
-          const response = await axios.get('/youtube/video/download', {
+          const response = await axios.get(`/youtube/video/download/${container}`, {
             baseURL: OpenAPI.BASE,
             headers: AxiosUtils.getAuthHeader(),
             params: { url },

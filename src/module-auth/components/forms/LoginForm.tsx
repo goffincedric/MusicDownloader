@@ -5,11 +5,9 @@ import { TranslationConstants } from '../../../shared/constants/translation.cons
 import { useForm } from 'react-hook-form';
 import * as joi from 'joi';
 import { joiResolver } from '@hookform/resolvers/joi';
-import { RegexConstants } from '../../../shared/constants/regex.constants';
 import Typography from '@mui/material/Typography';
-import NavigationButtons from '../../../shared/components/button/NavigationButtons';
 import { FormProps } from '../../../shared/models/form';
-import { Key, NavigateNext } from '@mui/icons-material';
+import { Key } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
 import { Box } from '@mui/material';
 

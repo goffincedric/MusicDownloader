@@ -2,10 +2,7 @@ import VideoSelectionForm from '../forms/VideoSelectionForm';
 import { Track } from '../../../shared/models/track';
 import { MusicActionType } from '../../../shared/contexts/music/MusicActions';
 import { useContext, useMemo, useState } from 'react';
-import {
-  MusicContext,
-  MusicDispatchContext,
-} from '../../../shared/contexts/music/MusicContext';
+import { MusicContext, MusicDispatchContext } from '../../../shared/contexts/music/MusicContext';
 import { StepsDispatchContext } from '../../../shared/contexts/steps/StepsContext';
 import { StepActionType } from '../../../shared/contexts/steps/StepActions';
 

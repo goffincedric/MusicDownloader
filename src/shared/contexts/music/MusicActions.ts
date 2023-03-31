@@ -1,6 +1,5 @@
 import { Track } from '../../models/track';
 import { DownloadStatusEnum } from '../../enums/downloadStatusEnum';
-import { Dispatch } from 'react';
 
 export enum MusicActionType {
   SET_URL = 'SET_URL',
@@ -24,6 +23,7 @@ export type MusicAction =
 export interface SetUrlAction {
   type: MusicActionType.SET_URL;
   url: string;
+  container: string;
 }
 export interface SetDownloadStatusAction {
   type: MusicActionType.SET_DOWNLOAD_STATUS;

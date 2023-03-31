@@ -4,6 +4,7 @@ import { DownloadStatusEnum } from '../../enums/downloadStatusEnum';
 
 export interface MusicState {
   url?: string;
+  container?: string;
   downloadStatus: DownloadStatusEnum;
   tracks: Track[];
 }
@@ -19,6 +20,7 @@ export const MusicReducer = (state: MusicState, action: MusicAction): MusicState
       return {
         ...state,
         url: action.url,
+        container: action.container
       };
     case MusicActionType.SET_TRACKS:
       return {
