@@ -12,25 +12,27 @@ export const AxiosUtils = {
       baseURL: baseUrl,
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        Accept: 'application/json',
       },
       // Transform the request data to JSON string
       transformRequest: [(data) => JSON.stringify(data)],
-      transformResponse: [(data) => {
-        // Parse the response data from JSON string to JavaScript object
-        try {
-          return JSON.parse(data);
-        } catch (error) {
-          return data;
-        }
-      }],
+      transformResponse: [
+        (data) => {
+          // Parse the response data from JSON string to JavaScript object
+          try {
+            return JSON.parse(data);
+          } catch (error) {
+            return data;
+          }
+        },
+      ],
     });
   },
   getFilenameFromHeaders(response: AxiosResponse): string {
     const contentDisposition = response.headers['content-disposition'];
     if (!contentDisposition) return '';
-    const [, , filename] = RegexConstants.AXIOS.CONTENT_DISPOSITION_HEADER.exec(contentDisposition) ?? [];
-    return filename;
+    const [filename, utfFileName] = RegexConstants.AXIOS.CONTENT_DISPOSITION_HEADER.exec(contentDisposition) ?? [];
+    return utfFileName ?? filename;
   },
   getAuthHeader() {
     const jwtToken = AuthenticationStorage.getJwtToken()!;
