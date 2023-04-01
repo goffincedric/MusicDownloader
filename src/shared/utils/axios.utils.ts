@@ -31,8 +31,8 @@ export const AxiosUtils = {
   getFilenameFromHeaders(response: AxiosResponse): string {
     const contentDisposition = response.headers['content-disposition'];
     if (!contentDisposition) return '';
-    const [filename, utfFileName] = RegexConstants.AXIOS.CONTENT_DISPOSITION_HEADER.exec(contentDisposition) ?? [];
-    return utfFileName ?? filename;
+    const [, filename, utfFileName] = RegexConstants.AXIOS.CONTENT_DISPOSITION_HEADER.exec(contentDisposition) ?? [];
+    return utfFileName ? decodeURI(utfFileName) : filename;
   },
   getAuthHeader() {
     const jwtToken = AuthenticationStorage.getJwtToken()!;
