@@ -25,9 +25,17 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 );
 
 /*
-* TODO:
-*  - Save theme preference to localStorage
-*  - Add icon svg to menu bar + change color depending on theme
-*  - Add PWA functionality
-*  - Add error toasts
-* */
+ * TODO:
+ *  - Save theme preference to localStorage
+ *  - Add icon svg to menu bar + change color depending on theme
+ *  - Add PWA functionality
+ *  - Add error toasts
+ * */
+
+/*
+ * Feedback:
+ *  Remove account button when not logged in
+ *  make api key password field (with stars)
+ *  Filename: {artist} - {song title}, otherwise video title
+ *  
+ * */
