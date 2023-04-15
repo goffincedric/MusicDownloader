@@ -7,11 +7,12 @@ import { createTheme } from '@mui/material/styles';
 import { Box } from '@mui/material';
 import { StepsProvider } from '../shared/contexts/steps/StepsContext';
 import { MusicProvider } from '../shared/contexts/music/MusicContext';
+import { ThemeUtils } from '../shared/utils/theme.utils';
 
 function Layout({ children }: PropsWithChildren) {
   // Theme logic
-  const { themeOptions } = useContext(DarkThemeContext);
-  const theme = React.useMemo(() => createTheme(themeOptions), [themeOptions]);
+  const { currentMode } = useContext(DarkThemeContext);
+  const theme = React.useMemo(() => createTheme(ThemeUtils.resolveTheme(currentMode)), [currentMode]);
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />

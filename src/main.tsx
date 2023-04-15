@@ -26,16 +26,25 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 
 /*
  * TODO:
- *  - Save theme preference to localStorage
  *  - Add icon svg to menu bar + change color depending on theme
  *  - Add PWA functionality
  *  - Add error toasts
+ *  - Fix multiple music with same filename: showdown! https://www.youtube.com/playlist?list=PLEF1x2OQOdgwrnogZVJg4ciDK6QqMZDZs
+ *    https://www.youtube.com/watch?v=Sgh_CoLkQt4&list=PLEF1x2OQOdgwrnogZVJg4ciDK6QqMZDZs&index=24
+ *    https://www.youtube.com/watch?v=Sgh_CoLkQt4&list=PLEF1x2OQOdgwrnogZVJg4ciDK6QqMZDZs&index=31
+ *  - Add Youtube Music support (same video id)
  * */
 
 /*
  * Feedback:
- *  Remove account button when not logged in
- *  make api key password field (with stars)
+ *  On Processing page, add warning popup when:
+ *   - Some downloads failed
+ *  On Download page, add warning popup when:
+ *   - Clicking on Download more or next when no music has been downloaded yet
  *  Filename: {artist} - {song title}, otherwise video title
- *  
+ *  Support for browser navigation (separate step page routes)
+ *  Add countdown besides progress bar
+ *  Add 'Powered by YoutubeReExplode' text to website somewhere
+ *  Speed-mode: Keep url bar up, each url gets added to queue and auto-downloaded, per-url containers choice, only authorized for my use
+ *  Podcast-mode: Don't use music metadata, use video titles, only playlist urls
  * */

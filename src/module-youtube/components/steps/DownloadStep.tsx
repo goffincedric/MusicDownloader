@@ -1,23 +1,29 @@
 import React, { Fragment, useContext, useMemo } from 'react';
 import Typography from '@mui/material/Typography';
 import { TranslationConstants } from '../../../shared/constants/translation.constants';
-import { Box, Divider } from '@mui/material';
-import { MusicContext } from '../../../shared/contexts/music/MusicContext';
+import { Box, Button, Divider, Stack } from '@mui/material';
+import { MusicContext, MusicDispatchContext } from '../../../shared/contexts/music/MusicContext';
 import TrackDownloadList from '../lists/TrackDownloadList';
 import { DownloadStatusEnum } from '../../../shared/enums/downloadStatusEnum';
 import TracksBulkDownload from '../lists/TracksBulkDownload';
 import NavigationButtons from '../../../shared/components/button/NavigationButtons';
 import { StepActionType } from '../../../shared/contexts/steps/StepActions';
 import { StepsDispatchContext } from '../../../shared/contexts/steps/StepsContext';
+import { MusicActionType } from '../../../shared/contexts/music/MusicActions';
 
 export default function DownloadStep() {
   const { tracks: _tracks } = useContext(MusicContext);
   const dispatchStepAction = useContext(StepsDispatchContext);
+  const dispatchMusicAction = useContext(MusicDispatchContext);
   const downloadableTracks = useMemo(
     () => _tracks.filter((track) => track.selected && track.downloadStatus === DownloadStatusEnum.FINISHED),
     _tracks
   );
 
+  const handleRestart = () => {
+    dispatchStepAction({ type: StepActionType.RESET });
+    dispatchMusicAction({ type: MusicActionType.RESET });
+  };
   const onNext = () => dispatchStepAction({ type: StepActionType.PROGRESS });
 
   return (
@@ -46,7 +52,18 @@ export default function DownloadStep() {
         tracks={downloadableTracks}
         emptyListMessage={TranslationConstants.LABELS.NO_DOWNLOADABLE_TRACKS}
       />
-      <NavigationButtons showBackButton={false} onNext={onNext} canProgress gutterTop />
+      <Stack justifyContent="flex-end" direction="row">
+        <Button variant="contained" onClick={handleRestart} sx={{ mb: 2, mt: 3 }}>
+          {TranslationConstants.BUTTONS.DOWNLOAD_MORE}
+        </Button>
+        <NavigationButtons
+          showBackButton={false}
+          onNext={onNext}
+          nextButtonText={TranslationConstants.BUTTONS.FINISH}
+          canProgress
+          gutterTop
+        />
+      </Stack>
     </Fragment>
   );
 }
