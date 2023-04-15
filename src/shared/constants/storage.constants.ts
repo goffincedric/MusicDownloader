@@ -1,6 +1,12 @@
 export const StorageConstants = {
   KEYS: {
-    JWT_TOKEN: 'JWT_TOKEN',
-    API_TOKEN: 'API_TOKEN',
+    AUTHENTICATION: {
+      JWT_TOKEN: 'JWT_TOKEN',
+      API_TOKEN: 'API_TOKEN',
+    },
+    PREFERENCES: {
+      THEME: 'THEME_PREF',
+      CONTAINER: 'CONTAINER_PREF',
+    },
   }
 }

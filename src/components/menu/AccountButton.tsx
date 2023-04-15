@@ -29,12 +29,6 @@ export function AccountButton(props: Omit<IconButtonProps, 'onClick'>) {
         <AccountCircle />
       </IconButton>
       <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <Key />
-          </ListItemIcon>
-          <ListItemText>{TranslationConstants.BUTTONS.SET_API_KEY}</ListItemText>
-        </MenuItem>
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <Logout />

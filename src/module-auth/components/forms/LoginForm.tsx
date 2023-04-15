@@ -47,6 +47,7 @@ export default function LoginForm({ onSubmit, loading, disabled }: FormProps<str
           <Grid item xs={12}>
             <TextField
               required
+              type='password'
               label={TranslationConstants.LABELS.API_KEY}
               placeholder={TranslationConstants.PLACEHOLDERS.API_KEY}
               fullWidth
