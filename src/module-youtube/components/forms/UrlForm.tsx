@@ -11,6 +11,8 @@ import NavigationButtons from '../../../shared/components/button/NavigationButto
 import { FormProps } from '../../../shared/models/form';
 import MenuItem from '@mui/material/MenuItem';
 import { MusicConstants } from '../../../shared/constants/music.constants';
+import { PreferenceStorage } from '../../../shared/storage/preference/PreferenceStorage';
+import { FormControlLabel, FormHelperText, SelectChangeEvent } from '@mui/material';
 
 export interface UrlFormValues {
   url: string;
@@ -30,7 +32,7 @@ export default function UrlForm({ onSubmit, loading, disabled }: FormProps<UrlFo
     container: joi.string().required(),
   });
   const { register, formState, handleSubmit } = useForm<UrlFormValues>({
-    defaultValues: { url: '', container: MusicConstants.CONTAINERS.MP3 },
+    defaultValues: { url: '', container: PreferenceStorage.getContainerPreference() ?? MusicConstants.CONTAINERS.MP3 },
     resolver: joiResolver(schema),
     mode: 'onChange',
   });
@@ -49,7 +51,6 @@ export default function UrlForm({ onSubmit, loading, disabled }: FormProps<UrlFo
             <TextField
               required
               label={TranslationConstants.LABELS.URL}
-              placeholder={TranslationConstants.PLACEHOLDERS.YOUTUBE_URL}
               fullWidth
               autoComplete="url"
               variant="standard"
@@ -58,17 +59,20 @@ export default function UrlForm({ onSubmit, loading, disabled }: FormProps<UrlFo
               {...register('url')}
               disabled={disabled || loading}
             />
+            <FormHelperText>{TranslationConstants.PLACEHOLDERS.YOUTUBE_URL}</FormHelperText>
           </Grid>
           <Grid item xs={12} md={3}>
             <TextField
               required
               select
-              defaultValue={MusicConstants.CONTAINERS.MP3}
+              defaultValue={formState.defaultValues?.container}
               label={TranslationConstants.LABELS.CONTAINER}
-              placeholder={TranslationConstants.PLACEHOLDERS.CONTAINER}
+              helperText={TranslationConstants.PLACEHOLDERS.CONTAINER}
               fullWidth
               variant="standard"
-              {...register('container')}
+              {...register('container', {
+                onChange: (e: SelectChangeEvent) => PreferenceStorage.setContainerPreference(e.target.value),
+              })}
               disabled={disabled || loading}
             >
               <MenuItem value={MusicConstants.CONTAINERS.MP3}>{TranslationConstants.LABELS.MP3}</MenuItem>

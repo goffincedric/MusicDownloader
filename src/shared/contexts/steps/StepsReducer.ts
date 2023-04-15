@@ -1,4 +1,5 @@
 import { StepAction, StepActionType } from './StepActions';
+import { MusicActionType } from '../music/MusicActions';
 
 export interface StepperState {
   currentStep: number;

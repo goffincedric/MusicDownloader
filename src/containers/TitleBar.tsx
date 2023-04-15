@@ -7,8 +7,12 @@ import { Stack } from '@mui/material';
 import { AccountButton } from '../components/menu/AccountButton';
 import { SettingsButton } from '../components/menu/SettingsButton';
 import { TranslationConstants } from '../shared/constants/translation.constants';
+import { router } from '../router/router';
+import { useContext } from 'react';
+import { AuthenticationContext } from '../shared/contexts/authentication/AuthenticationContext';
 
 function TitleBar() {
+  const { authenticated } = useContext(AuthenticationContext);
   return (
     <AppBar
       position="fixed"
@@ -18,12 +22,9 @@ function TitleBar() {
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <MusicNote sx={{ display: 'flex', mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
-            component="a"
-            href=""
             sx={{
               display: 'flex',
               flexGrow: 1,
@@ -32,12 +33,17 @@ function TitleBar() {
               letterSpacing: '.2rem',
               color: 'inherit',
               textDecoration: 'none',
+              alignItems: 'center',
+              userSelect: 'none',
+              cursor: 'pointer',
             }}
+            onClick={() => router.navigate('/')}
           >
+            <MusicNote sx={{ display: 'flex', mr: 1 }} />
             {TranslationConstants.GENERAL.APP_TITLE}
           </Typography>
           <Stack direction="row" gap={2}>
-            <AccountButton />
+            {authenticated && <AccountButton />}
             <SettingsButton />
           </Stack>
         </Toolbar>
