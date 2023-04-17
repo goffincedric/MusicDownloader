@@ -18,4 +18,14 @@ export class PreferenceStorage {
   static getContainerPreference(): string | null {
     return localStorage.getItem(StorageConstants.KEYS.PREFERENCES.CONTAINER);
   }
+
+  static setAlertVisibilityPreference(alert: string, visibility: boolean): void {
+    localStorage.setItem(alert, JSON.stringify(visibility));
+  }
+
+  static getAlertVisibilityPreference(alert: string): boolean {
+    const preference = localStorage.getItem(alert);
+    if (preference) return JSON.parse(preference);
+    return true;
+  }
 }

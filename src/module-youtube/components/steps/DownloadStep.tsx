@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useMemo } from 'react';
+import React, { Fragment, useContext, useMemo, useRef, useState } from 'react';
 import Typography from '@mui/material/Typography';
 import { TranslationConstants } from '../../../shared/constants/translation.constants';
 import { Box, Button, Divider, Stack } from '@mui/material';
@@ -10,6 +10,7 @@ import NavigationButtons from '../../../shared/components/button/NavigationButto
 import { StepActionType } from '../../../shared/contexts/steps/StepActions';
 import { StepsDispatchContext } from '../../../shared/contexts/steps/StepsContext';
 import { MusicActionType } from '../../../shared/contexts/music/MusicActions';
+import { NoTracksDownloadedDialog } from '../dialogs/NoTracksDownloadedDialog';
 
 export default function DownloadStep() {
   const { tracks: _tracks } = useContext(MusicContext);
@@ -20,11 +21,29 @@ export default function DownloadStep() {
     _tracks
   );
 
+  // Dialog state
+  const [dialogIsOpen, openDialog] = useState(false);
+  // Callback state
+  const successCallbackRef = useRef<Function>();
+
+  // Download state
+  const anyTrackGotLocallyDownloaded = useMemo(
+    () => _tracks.some((track) => track.downloadedLocally && track.selected),
+    [_tracks]
+  );
+
+  const validateLocalDownload = (onSuccessCallback: () => void) => {
+    if (!anyTrackGotLocallyDownloaded) {
+      openDialog(true);
+      successCallbackRef.current = onSuccessCallback;
+    }
+    else onSuccessCallback();
+  };
   const handleRestart = () => {
     dispatchStepAction({ type: StepActionType.RESET });
     dispatchMusicAction({ type: MusicActionType.RESET });
   };
-  const onNext = () => dispatchStepAction({ type: StepActionType.PROGRESS });
+  const handleNext = () => dispatchStepAction({ type: StepActionType.PROGRESS });
 
   return (
     <Fragment>
@@ -42,7 +61,12 @@ export default function DownloadStep() {
             }}
           >
             <TracksBulkDownload tracks={downloadableTracks} />
-            <NavigationButtons showBackButton={false} onNext={onNext} canProgress gutterBottom />
+            <NavigationButtons
+              showBackButton={false}
+              onNext={() => validateLocalDownload(handleNext)}
+              canProgress
+              gutterBottom
+            />
           </Box>
           <Divider />
         </Fragment>
@@ -53,17 +77,18 @@ export default function DownloadStep() {
         emptyListMessage={TranslationConstants.LABELS.NO_DOWNLOADABLE_TRACKS}
       />
       <Stack justifyContent="flex-end" direction="row">
-        <Button variant="contained" onClick={handleRestart} sx={{ mb: 2, mt: 3 }}>
+        <Button variant="contained" onClick={() => validateLocalDownload(handleRestart)} sx={{ mb: 2, mt: 3 }}>
           {TranslationConstants.BUTTONS.DOWNLOAD_MORE}
         </Button>
         <NavigationButtons
           showBackButton={false}
-          onNext={onNext}
+          onNext={() => validateLocalDownload(handleNext)}
           nextButtonText={TranslationConstants.BUTTONS.FINISH}
           canProgress
           gutterTop
         />
       </Stack>
+      <NoTracksDownloadedDialog isOpen={dialogIsOpen} onCancel={() => openDialog(false)} onContinue={() => successCallbackRef.current?.()} />
     </Fragment>
   );
 }

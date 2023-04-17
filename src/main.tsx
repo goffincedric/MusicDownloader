@@ -37,10 +37,6 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 
 /*
  * Feedback:
- *  On Processing page, add warning popup when:
- *   - Some downloads failed
- *  On Download page, add warning popup when:
- *   - Clicking on Download more or next when no music has been downloaded yet
  *  Filename: {artist} - {song title}, otherwise video title
  *  Support for browser navigation (separate step page routes)
  *  Add countdown besides progress bar
