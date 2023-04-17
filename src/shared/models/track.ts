@@ -14,7 +14,8 @@ export abstract class Track {
     public title: string,
     public url: string,
     public thumbnail: ThumbnailDetails,
-    public selected: boolean = false
+    public selected: boolean = false,
+    public downloadedLocally: boolean = false,
   ) {
     const videoId = YoutubeUtils.getVideoId(url);
     if (videoId === null) throw Error('Invalid track id');

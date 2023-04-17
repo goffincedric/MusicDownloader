@@ -5,12 +5,17 @@ import { AudioFile, Download } from '@mui/icons-material';
 import { saveAs } from 'file-saver';
 import { Button } from '@mui/material';
 import { grey } from '@mui/material/colors';
+import { MusicActionType } from '../../shared/contexts/music/MusicActions';
 
 interface TrackFileDownloadProps {
   file: File;
+  onDownload: () => void;
 }
-export default function TrackFileDownload({ file }: TrackFileDownloadProps) {
-  const handleFileDownload = () => saveAs(file, file.name);
+export default function TrackFileDownload({ file, onDownload }: TrackFileDownloadProps) {
+  const handleFileDownload = () => {
+    saveAs(file, file.name);
+    onDownload();
+  };
   const size = 60;
 
   return (

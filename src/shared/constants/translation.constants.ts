@@ -35,6 +35,27 @@ export const TranslationConstants = {
     STEPS_COMPLETED_RETRY: 'Want to download another video/playlist? Click the button below to start over!',
     MP3: 'mp3',
     OGG: 'ogg',
+    NEVER_SHOW_DIALOG_AGAIN: 'Never ask this again',
+  },
+  DIALOGS: {
+    PROCESSING_ALERT_FAILED_TRACKS: {
+      TITLE: 'Continue with failed downloads?',
+      DESCRIPTION: (hasFailedTracks: boolean, hasCancelledTracks: boolean) => {
+        let text = 'Some track downloads';
+        if (hasCancelledTracks) text += ' got cancelled';
+        if (hasCancelledTracks && hasFailedTracks) text += ' or';
+        if (hasFailedTracks) text += ' failed';
+        text += '.';
+        return text;
+      },
+      QUESTION: 'Do you want to continue anyway?',
+    },
+    NO_TRACKS_DOWNLOADED: {
+      TITLE: 'No tracks have been downloaded yet',
+      DESCRIPTION:
+        "You haven't downloaded any processed tracks yet. Think of all those wasted cpu cycles... (﻿ᴛ﻿﹏﻿ᴛ﻿)",
+      QUESTION: 'Do you want to continue anyway?',
+    },
   },
   PLACEHOLDERS: {
     YOUTUBE_URL: 'Enter your youtube video or playlist url here...',
@@ -63,5 +84,6 @@ export const TranslationConstants = {
     [DarkThemeMode.DARK]: 'Dark',
     LOGIN: 'Login',
     LOGOUT: 'Logout',
+    CONTINUE: 'Continue',
   },
 };
