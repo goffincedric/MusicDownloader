@@ -5,12 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite --mode=dev",
-    "build": "vite build",
+    "build": "vite build --outDir build",
     "prepreview": "yarn build",
     "preview": "vite preview",
-    "serve": "serve -s ./dist -l 8083",
-    "preopenapi:gen": "del-cli src/shared/services/openapi",
-    "openapi:gen": "openapi -i http://localhost:55077/swagger/v1/swagger.json -o src/shared/services/openapi --client axios"
+    "preserve": "yarn build",
+    "serve": "serve -s build -l 8083",
+    "openapi:gen": "openapi -i http://localhost:55077/swagger/v1/swagger.json -o src/shared/services/openapi --client axios",
+    "preopenapi:gen": "del-cli src/shared/services/openapi"
   },
   "dependencies": {
     "@emotion/react": "^11.10.8",
@@ -27,7 +28,19 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.9",
-    "react-router-dom": "^6.11.0"
+    "react-router-dom": "^6.11.0",
+    "workbox-background-sync": "^6.5.4",
+    "workbox-broadcast-update": "^6.5.4",
+    "workbox-cacheable-response": "^6.5.4",
+    "workbox-core": "^6.5.4",
+    "workbox-expiration": "^6.5.4",
+    "workbox-google-analytics": "^6.5.4",
+    "workbox-navigation-preload": "^6.5.4",
+    "workbox-precaching": "^6.5.4",
+    "workbox-range-requests": "^6.5.4",
+    "workbox-routing": "^6.5.4",
+    "workbox-strategies": "^6.5.4",
+    "workbox-streams": "^6.5.4"
   },
   "devDependencies": {
     "@types/file-saver": "^2.0.5",
@@ -44,5 +57,17 @@
     "serve": "^14.2.0",
     "typescript": "^5.0.4",
     "vite": "^4.3.3"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
