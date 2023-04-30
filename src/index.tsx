@@ -10,6 +10,7 @@ import { DarkThemeProvider } from './shared/contexts/theme/DarkThemeContext';
 import { AuthenticationStorage } from './shared/storage/authentication/AuthenticationStorage';
 import { AuthenticationProvider } from './shared/contexts/authentication/AuthenticationContext';
 import { OpenAPI } from './shared/services/openapi';
+import * as serviceWorkerRegistration from './serviceWorker/serviceWorkerRegistration';
 
 OpenAPI.BASE = import.meta.env.VITE_API_URL;
 OpenAPI.TOKEN = async () => AuthenticationStorage.getJwtToken()!;
@@ -23,6 +24,11 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   </DarkThemeProvider>
   // </React.StrictMode>
 );
+
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://cra.link/PWA
+serviceWorkerRegistration.register();
 
 /*
  * TODO:
