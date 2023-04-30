@@ -8,5 +8,8 @@ export const StorageConstants = {
       THEME: 'THEME_PREF',
       CONTAINER: 'CONTAINER_PREF',
     },
+    ALERT_VISIBILITY: {
+      CONTINUE_WITH_FAILED_DOWNLOADS: 'SHOW_CONTINUE_WITH_FAILED_DOWNLOADS_ALERT'
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { Fragment, useContext, useMemo } from 'react';
+import { Fragment, useContext, useMemo, useState } from 'react';
 import { MusicContext, MusicDispatchContext } from '../../../shared/contexts/music/MusicContext';
 import { DownloadStatusEnum } from '../../../shared/enums/downloadStatusEnum';
 import { Button, Divider, Stack } from '@mui/material';
@@ -15,23 +15,34 @@ import LoadingButtonCustomIcon from '../../../shared/components/button/LoadingBu
 import TrackProcessingList from '../../containers/TrackProcessingList';
 import NavigationButtons from '../../../shared/components/button/NavigationButtons';
 import { DownloadWorkerManager } from '../../../shared/workers/download/downloadWorkerManager';
+import { ProcessingTracksFailedDialog } from '../dialogs/ProcessingTracksFailedDialog';
+import { PreferenceStorage } from '../../../shared/storage/preference/PreferenceStorage';
+import { StorageConstants } from '../../../shared/constants/storage.constants';
 
 export default function ProcessingStep() {
   const { container, tracks: _tracks, downloadStatus } = useContext(MusicContext);
   const dispatchMusicAction = useContext(MusicDispatchContext);
   const dispatchStepAction = useContext(StepsDispatchContext);
 
-  // Filter out tracks that were selected f or download
+  // Dialog state
+  const [dialogIsOpen, openDialog] = useState(false);
+
+  // Filter out tracks that were selected for download
   const selectedTracks = useMemo(() => _tracks.filter((track) => track.selected), [_tracks]);
 
   // Move each track into respective list according to status
   const tracksToDownload: Track[] = [];
   const tracksToRetry: Track[] = [];
   const downloadedTracks: Track[] = [];
+  let hasFailedTracks = false;
+  let hasCancelledTracks = false;
   selectedTracks.forEach((track) => {
     if (track.downloadStatus === DownloadStatusEnum.FINISHED) downloadedTracks.push(track);
-    else if (GlobalConstants.Music.RETRYABLE_STATUSES.includes(track.downloadStatus)) tracksToRetry.push(track);
-    else tracksToDownload.push(track);
+    else if (GlobalConstants.Music.RETRYABLE_STATUSES.includes(track.downloadStatus)) {
+      tracksToRetry.push(track);
+      if (track.downloadStatus === DownloadStatusEnum.FAILED) hasFailedTracks = true;
+      else if (track.downloadStatus === DownloadStatusEnum.CANCELLED) hasCancelledTracks = true;
+    } else tracksToDownload.push(track);
   });
 
   // Calculate current and total progress for progress bar
@@ -53,7 +64,13 @@ export default function ProcessingStep() {
   const handleStartVideoDownloads = () =>
     DownloadWorkerManager.addTracks(selectedTracks, container!, dispatchMusicAction);
   const handleCancelVideoDownloads = () => DownloadWorkerManager.cancelAllTrackDownloads(dispatchMusicAction);
-  const onNext = () => dispatchStepAction({ type: StepActionType.PROGRESS });
+  const onNext = (bypassDialog = false) => {
+    const showDialog = PreferenceStorage.getAlertVisibilityPreference(
+      StorageConstants.KEYS.ALERT_VISIBILITY.CONTINUE_WITH_FAILED_DOWNLOADS
+    );
+    if (showDialog && !bypassDialog && (hasFailedTracks || hasCancelledTracks)) openDialog(true);
+    else dispatchStepAction({ type: StepActionType.PROGRESS });
+  };
   const onBack = () => dispatchStepAction({ type: StepActionType.GO_BACK });
   const onRetry = (track: Track) => DownloadWorkerManager.addTracks([track], container!, dispatchMusicAction);
   const onCancel = (track: Track) => DownloadWorkerManager.cancelTrackDownload(track, dispatchMusicAction);
@@ -135,6 +152,13 @@ export default function ProcessingStep() {
         onCancel={onCancel}
       ></TrackProcessingList>
       <NavigationButtons onBack={onBack} onNext={onNext} canProgress={downloadsFinished} gutterTop />
+      <ProcessingTracksFailedDialog
+        hasFailedTracks={hasFailedTracks}
+        hasCancelledTracks={hasCancelledTracks}
+        isOpen={dialogIsOpen}
+        onCancel={() => openDialog(false)}
+        onContinue={() => onNext(true)}
+      />
     </Fragment>
   );
 }
