@@ -4,6 +4,7 @@ import { LoadingButton } from '@mui/lab';
 import { NavigateNext } from '@mui/icons-material';
 import Box from '@mui/material/Box';
 import { ConditionalWrapper } from '../hoc/ConditionalWrapper';
+import { FunctionUtils } from '../../utils/function.utils';
 
 interface NavigationButtonProps {
   onBack?: () => void;
@@ -20,8 +21,8 @@ interface NavigationButtonProps {
   fullHeight?: boolean;
 }
 export default function NavigationButtons({
-  onBack,
-  onNext,
+  onBack = FunctionUtils.noOp,
+  onNext = FunctionUtils.noOp,
   canProgress,
   isProgressing,
   isSubmitButton,
@@ -44,7 +45,7 @@ export default function NavigationButtons({
         }}
       >
         {showBackButton && (
-          <Button variant="text" onClick={onBack}>
+          <Button variant="text" onClick={() => onBack()}>
             {backButtonText}
           </Button>
         )}
@@ -52,7 +53,7 @@ export default function NavigationButtons({
           <LoadingButton
             type={isSubmitButton ? 'submit' : 'button'}
             variant="contained"
-            onClick={onNext}
+            onClick={() => onNext()}
             sx={{ ml: 1 }}
             disabled={!canProgress}
             loading={isProgressing}

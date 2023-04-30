@@ -49,7 +49,7 @@ export const MusicReducer = (state: MusicState, action: MusicAction): MusicState
         downloadStatus: action.downloadStatus,
       };
     case MusicActionType.UPDATE_TRACK:
-      const index = state.tracks.findIndex((track) => track.url === action.updatedTrack.url);
+      const index = state.tracks.findIndex((track) => track.id === action.updatedTrack.id);
       state.tracks[index] = action.updatedTrack;
       return {
         ...state,
