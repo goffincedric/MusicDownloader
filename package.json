@@ -4,13 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "build": "vite build",
     "dev": "vite --mode=dev",
-    "build": "vite build --outDir build",
-    "prepreview": "yarn build",
     "preview": "vite preview",
-    "preserve": "yarn build",
-    "serve": "serve -s build -l 8083",
+    "serve": "serve -s dist -l 8083",
     "openapi:gen": "openapi -i http://localhost:55077/swagger/v1/swagger.json -o src/shared/services/openapi --client axios",
+
+    "preserve": "yarn build",
+    "prepreview": "yarn build",
     "preopenapi:gen": "del-cli src/shared/services/openapi"
   },
   "dependencies": {
@@ -23,24 +24,12 @@
     "@mui/material": "^5.12.2",
     "file-saver": "^2.0.5",
     "joi": "^17.9.2",
-    "jwt-decode": "^3.1.2",
     "jszip": "^3.10.1",
+    "jwt-decode": "^3.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.9",
-    "react-router-dom": "^6.11.0",
-    "workbox-background-sync": "^6.5.4",
-    "workbox-broadcast-update": "^6.5.4",
-    "workbox-cacheable-response": "^6.5.4",
-    "workbox-core": "^6.5.4",
-    "workbox-expiration": "^6.5.4",
-    "workbox-google-analytics": "^6.5.4",
-    "workbox-navigation-preload": "^6.5.4",
-    "workbox-precaching": "^6.5.4",
-    "workbox-range-requests": "^6.5.4",
-    "workbox-routing": "^6.5.4",
-    "workbox-strategies": "^6.5.4",
-    "workbox-streams": "^6.5.4"
+    "react-router-dom": "^6.11.0"
   },
   "devDependencies": {
     "@types/file-saver": "^2.0.5",
@@ -56,18 +45,7 @@
     "sass": "^1.62.1",
     "serve": "^14.2.0",
     "typescript": "^5.0.4",
-    "vite": "^4.3.3"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "vite": "^4.3.3",
+    "vite-plugin-pwa": "^0.14.7"
   }
 }
