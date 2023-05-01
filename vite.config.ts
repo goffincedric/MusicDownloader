@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: 'autoUpdate',
+      registerType: 'prompt',
       injectRegister: 'auto',
       devOptions: {
         enabled: process.env.NODE_ENV !== 'production',
@@ -25,11 +25,20 @@ export default defineConfig({
             type: 'image/svg+xml',
           },
         ],
+        share_target: {
+          action: '/',
+          method: 'GET',
+          params: {
+            title: 'title',
+            text: 'text',
+            url: 'url',
+          },
+        },
       },
       // Pre-caching config
       workbox: {
-        globPatterns: ['**/*.{js,css,html,svg}']
-      }
+        globPatterns: ['**/*.{js,css,html,svg}'],
+      },
     }),
   ],
 });
