@@ -9,6 +9,7 @@ import { PlaylistService, VideoService } from '../../../shared/services/openapi'
 import { StepsDispatchContext } from '../../../shared/contexts/steps/StepsContext';
 import { StepActionType } from '../../../shared/contexts/steps/StepActions';
 import { YoutubeTrack } from '../../../shared/models/youtubeTrack';
+import { useSearchParams } from "react-router-dom";
 
 /*
 Test data:
@@ -49,6 +50,9 @@ export default function UrlStep() {
   const dispatchStepAction = useContext(StepsDispatchContext);
   let [formLoading, setFormLoading] = useState(false);
 
+  let [searchParams] = useSearchParams()
+  const initialUrl = searchParams.get("url");
+
   const resolveUrlToTracks = async (url: string): Promise<Track[]> => {
     // Resolve url to type
     const urlType = YoutubeUtils.resolveUrlType(url);
@@ -85,5 +89,5 @@ export default function UrlStep() {
     }
   };
 
-  return <UrlForm onSubmit={onUrlSubmit} loading={formLoading} />;
+  return <UrlForm initialUrl={initialUrl} onSubmit={onUrlSubmit} loading={formLoading} />;
 }
