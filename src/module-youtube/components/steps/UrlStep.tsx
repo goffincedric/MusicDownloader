@@ -51,7 +51,7 @@ export default function UrlStep() {
   let [formLoading, setFormLoading] = useState(false);
 
   let [searchParams] = useSearchParams()
-  const initialUrl = searchParams.get("url");
+  const initialUrl = searchParams.get("text");
 
   const resolveUrlToTracks = async (url: string): Promise<Track[]> => {
     // Resolve url to type
