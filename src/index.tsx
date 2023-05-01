@@ -27,7 +27,6 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 /*
  * TODO:
  *  - Add icon svg to menu bar + change color depending on theme
- *  - Add PWA functionality
  *  - Add error toasts
  *  - Fix multiple music with same filename: showdown! https://www.youtube.com/playlist?list=PLEF1x2OQOdgwrnogZVJg4ciDK6QqMZDZs
  *    https://www.youtube.com/watch?v=Sgh_CoLkQt4&list=PLEF1x2OQOdgwrnogZVJg4ciDK6QqMZDZs&index=24
