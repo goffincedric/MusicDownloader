@@ -14,12 +14,15 @@ import { MusicConstants } from '../../../shared/constants/music.constants';
 import { PreferenceStorage } from '../../../shared/storage/preference/PreferenceStorage';
 import { FormControlLabel, FormHelperText, SelectChangeEvent } from '@mui/material';
 
+export interface UrlFormProps {
+  initialUrl?: string | null;
+}
+
 export interface UrlFormValues {
   url: string;
   container: string;
 }
-
-export default function UrlForm({ onSubmit, loading, disabled }: FormProps<UrlFormValues>) {
+export default function UrlForm({ initialUrl, onSubmit, loading, disabled }: FormProps<UrlFormValues> & UrlFormProps) {
   const schema = joi.object({
     url: joi
       .string()
@@ -32,7 +35,10 @@ export default function UrlForm({ onSubmit, loading, disabled }: FormProps<UrlFo
     container: joi.string().required(),
   });
   const { register, formState, handleSubmit } = useForm<UrlFormValues>({
-    defaultValues: { url: '', container: PreferenceStorage.getContainerPreference() ?? MusicConstants.CONTAINERS.MP3 },
+    defaultValues: {
+      url: initialUrl ?? '',
+      container: PreferenceStorage.getContainerPreference() ?? MusicConstants.CONTAINERS.MP3,
+    },
     resolver: joiResolver(schema),
     mode: 'onChange',
   });
