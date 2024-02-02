@@ -83,6 +83,7 @@ export default function UrlForm({ initialUrl, onSubmit, loading, disabled }: For
             >
               <MenuItem value={MusicConstants.CONTAINERS.MP3}>{TranslationConstants.LABELS.MP3}</MenuItem>
               <MenuItem value={MusicConstants.CONTAINERS.OGG}>{TranslationConstants.LABELS.OGG}</MenuItem>
+              <MenuItem value={MusicConstants.CONTAINERS.SOURCE}>{TranslationConstants.LABELS.SOURCE}</MenuItem>
             </TextField>
           </Grid>
         </Grid>
