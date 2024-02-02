@@ -1,6 +1,6 @@
 import { User } from '../../models/user';
 import { AuthenticationStorage } from '../authentication/AuthenticationStorage';
-import jwtDecode from 'jwt-decode';
+import { jwtDecode } from "jwt-decode";
 
 export class UserStorage {
   static getUser(): User | null {

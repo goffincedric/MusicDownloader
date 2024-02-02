@@ -1,10 +1,9 @@
+/* generated using openapi-typescript-codegen -- do no edit */
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-
 import type { ThumbnailDetails } from './ThumbnailDetails';
 import type { TrackDetails } from './TrackDetails';
-
 export type PlaylistDetailsExtended = {
     id?: string | null;
     url?: string | null;
@@ -13,3 +12,4 @@ export type PlaylistDetailsExtended = {
     thumbnails?: Array<ThumbnailDetails> | null;
     tracks?: Array<TrackDetails> | null;
 };
+
