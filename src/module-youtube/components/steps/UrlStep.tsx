@@ -9,7 +9,7 @@ import { PlaylistService, VideoService } from '../../../shared/services/openapi'
 import { StepsDispatchContext } from '../../../shared/contexts/steps/StepsContext';
 import { StepActionType } from '../../../shared/contexts/steps/StepActions';
 import { YoutubeTrack } from '../../../shared/models/youtubeTrack';
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from 'react-router-dom';
 
 /*
 Test data:
@@ -28,7 +28,7 @@ const resolveYoutubeVideo = async (url: string): Promise<Track> => {
     videoDetails.authorName!,
     videoDetails.title!,
     videoDetails.url!,
-    YoutubeUtils.getBestThumbnail(videoDetails.thumbnails!)
+    YoutubeUtils.getBestThumbnail(videoDetails.thumbnails!),
   );
 };
 const resolveYoutubePlaylist = async (url: string): Promise<Track[]> => {
@@ -40,8 +40,8 @@ const resolveYoutubePlaylist = async (url: string): Promise<Track[]> => {
         playlistVideo.authorName!,
         playlistVideo.title!,
         playlistVideo.url!,
-        YoutubeUtils.getBestThumbnail(playlistVideo.thumbnails!)
-      )
+        YoutubeUtils.getBestThumbnail(playlistVideo.thumbnails!),
+      ),
   );
 };
 
@@ -50,8 +50,8 @@ export default function UrlStep() {
   const dispatchStepAction = useContext(StepsDispatchContext);
   let [formLoading, setFormLoading] = useState(false);
 
-  let [searchParams] = useSearchParams()
-  const initialUrl = searchParams.get("text");
+  let [searchParams] = useSearchParams();
+  const initialUrl = searchParams.get('text');
 
   const resolveUrlToTracks = async (url: string): Promise<Track[]> => {
     // Resolve url to type

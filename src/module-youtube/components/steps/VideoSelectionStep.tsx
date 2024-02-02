@@ -11,10 +11,7 @@ export default function VideoSelectionStep() {
   const dispatchMusicAction = useContext(MusicDispatchContext);
   const dispatchStepAction = useContext(StepsDispatchContext);
   let [formLoading, setFormLoading] = useState(false);
-  const canProgress = useMemo(
-    () => tracks.some((track) => track.selected),
-    [tracks]
-  );
+  const canProgress = useMemo(() => tracks.some((track) => track.selected), [tracks]);
 
   const handleCardSelected = (track: Track) =>
     dispatchMusicAction({

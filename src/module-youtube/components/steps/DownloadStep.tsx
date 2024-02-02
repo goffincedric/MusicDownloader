@@ -18,7 +18,7 @@ export default function DownloadStep() {
   const dispatchMusicAction = useContext(MusicDispatchContext);
   const downloadableTracks = useMemo(
     () => _tracks.filter((track) => track.selected && track.downloadStatus === DownloadStatusEnum.FINISHED),
-    _tracks
+    _tracks,
   );
 
   // Dialog state
@@ -29,15 +29,14 @@ export default function DownloadStep() {
   // Download state
   const anyTrackGotLocallyDownloaded = useMemo(
     () => _tracks.some((track) => track.downloadedLocally && track.selected),
-    [_tracks]
+    [_tracks],
   );
 
   const validateLocalDownload = (onSuccessCallback: () => void) => {
     if (!anyTrackGotLocallyDownloaded) {
       openDialog(true);
       successCallbackRef.current = onSuccessCallback;
-    }
-    else onSuccessCallback();
+    } else onSuccessCallback();
   };
   const handleRestart = () => {
     dispatchStepAction({ type: StepActionType.RESET });
@@ -88,7 +87,11 @@ export default function DownloadStep() {
           gutterTop
         />
       </Stack>
-      <NoTracksDownloadedDialog isOpen={dialogIsOpen} onCancel={() => openDialog(false)} onContinue={() => successCallbackRef.current?.()} />
+      <NoTracksDownloadedDialog
+        isOpen={dialogIsOpen}
+        onCancel={() => openDialog(false)}
+        onContinue={() => successCallbackRef.current?.()}
+      />
     </Fragment>
   );
 }

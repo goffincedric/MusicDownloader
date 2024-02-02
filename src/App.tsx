@@ -5,7 +5,7 @@ import { RouterProvider } from 'react-router-dom';
 import { router } from './router/router';
 import {
   AuthenticationContext,
-  AuthenticationDispatchContext
+  AuthenticationDispatchContext,
 } from './shared/contexts/authentication/AuthenticationContext';
 import { AxiosUtils } from './shared/utils/axios.utils';
 

@@ -31,19 +31,19 @@ export const ProcessingTracksFailedDialog = ({
   // Future alert visibility state
   const [showAlertNextTime, setVisibilityFlag] = useState(
     PreferenceStorage.getAlertVisibilityPreference(
-      StorageConstants.KEYS.ALERT_VISIBILITY.CONTINUE_WITH_FAILED_DOWNLOADS
-    )
+      StorageConstants.KEYS.ALERT_VISIBILITY.CONTINUE_WITH_FAILED_DOWNLOADS,
+    ),
   );
   // Construct description
   const description = useMemo(
     () => TranslationConstants.DIALOGS.PROCESSING_ALERT_FAILED_TRACKS.DESCRIPTION(hasFailedTracks, hasCancelledTracks),
-    [hasCancelledTracks, hasFailedTracks]
+    [hasCancelledTracks, hasFailedTracks],
   );
 
   const handleContinue = () => {
     PreferenceStorage.setAlertVisibilityPreference(
       StorageConstants.KEYS.ALERT_VISIBILITY.CONTINUE_WITH_FAILED_DOWNLOADS,
-      showAlertNextTime
+      showAlertNextTime,
     );
     onContinue();
   };

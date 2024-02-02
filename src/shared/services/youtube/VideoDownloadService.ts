@@ -1,6 +1,6 @@
 import axios, { AxiosProgressEvent } from 'axios';
 import { AxiosUtils } from '../../utils/axios.utils';
-import { CancelablePromise, OpenAPI } from "../openapi";
+import { CancelablePromise, OpenAPI } from '../openapi';
 
 export class VideoDownloadService {
   /**
@@ -12,7 +12,7 @@ export class VideoDownloadService {
   public static getYoutubeVideoDownload(
     url: string,
     container: string | undefined = undefined,
-    onDownloadProgress: (progressEvent: AxiosProgressEvent) => void
+    onDownloadProgress: (progressEvent: AxiosProgressEvent) => void,
   ): CancelablePromise<File> {
     return new CancelablePromise(async (resolve, reject, onCancel) => {
       try {

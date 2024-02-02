@@ -8,6 +8,6 @@ export const setDarkModeReducer = (state: DarkThemeState, action: DarkThemeActio
   // Update state
   return {
     ...state,
-    currentMode: action.mode
+    currentMode: action.mode,
   };
 };

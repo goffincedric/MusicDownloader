@@ -20,7 +20,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <AuthenticationProvider>
       <App />
     </AuthenticationProvider>
-  </DarkThemeProvider>
+  </DarkThemeProvider>,
   // </React.StrictMode>
 );
 

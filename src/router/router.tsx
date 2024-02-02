@@ -5,10 +5,10 @@ import AuthPage from '../module-auth/containers/AuthPage';
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <YoutubeSteps />
+    element: <YoutubeSteps />,
   },
   {
     path: '/login',
-    element: <AuthPage />
-  }
+    element: <AuthPage />,
+  },
 ]);

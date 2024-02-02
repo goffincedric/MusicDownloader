@@ -25,12 +25,7 @@ export default function DynamicTrackCard({
   let coverContent: JSX.Element;
   if (coverPosition === 'top') {
     coverContent = (
-      <CardMedia
-        component="img"
-        height="200"
-        image={track.thumbnail.url!}
-        alt={`${track.title} by ${track.author}`}
-      />
+      <CardMedia component="img" height="200" image={track.thumbnail.url!} alt={`${track.title} by ${track.author}`} />
     );
   } else {
     coverContent = (

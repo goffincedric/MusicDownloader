@@ -38,6 +38,7 @@ export default function TrackProcessingList({
                   <TrackProcessingStatus
                     downloadStatus={track.downloadStatus}
                     downloadProgress={track.downloadProgress}
+                    downloadedBytesProgress={track.downloadedBytesProgress}
                     onRetry={() => onRetry(track)}
                     onCancel={() => onCancel(track)}
                   />

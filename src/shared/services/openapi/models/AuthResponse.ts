@@ -3,6 +3,5 @@
 /* tslint:disable */
 /* eslint-disable */
 export type AuthResponse = {
-    jwtToken?: string | null;
+  jwtToken?: string | null;
 };
-

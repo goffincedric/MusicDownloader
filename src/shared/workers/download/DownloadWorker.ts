@@ -20,7 +20,7 @@ export class DownloadWorker {
   constructor(
     private sharedQueue: Track[],
     private container: string | undefined = undefined,
-    private dispatchMusicAction: Dispatch<MusicAction>
+    private dispatchMusicAction: Dispatch<MusicAction>,
   ) {}
 
   async start(): Promise<void> {
@@ -37,7 +37,7 @@ export class DownloadWorker {
           this.currentDownloadingTrack.url,
           this.container !== MusicConstants.CONTAINERS.SOURCE ? this.container : undefined,
           (progressEvent) =>
-            handleDownloadProgress(this.currentDownloadingTrack!, progressEvent, this.dispatchMusicAction)
+            handleDownloadProgress(this.currentDownloadingTrack!, progressEvent, this.dispatchMusicAction),
         );
         // Update track before awaiting download
         this.dispatchMusicAction({
@@ -78,7 +78,7 @@ export class DownloadWorker {
 const handleDownloadProgress = (
   track: Track,
   progressEvent: AxiosProgressEvent,
-  dispatchMusicAction: Dispatch<MusicAction>
+  dispatchMusicAction: Dispatch<MusicAction>,
 ) => {
   // Set status as downloading
   dispatchMusicAction({
@@ -91,6 +91,7 @@ const handleDownloadProgress = (
   const newProgress = (progressEvent.progress ?? 0) * 100;
   if (newProgress === 100) newStatus = DownloadStatusEnum.FINISHED;
   track.downloadProgress = newProgress;
+  track.downloadedBytesProgress = progressEvent.loaded;
   track.downloadStatus = newStatus;
 
   // Update track

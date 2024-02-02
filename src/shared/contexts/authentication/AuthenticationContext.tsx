@@ -3,7 +3,9 @@ import { AuthenticationReducer, AuthenticationState, initialAuthenticationState 
 import { AuthenticationAction } from './AuthenticationActions';
 
 export const AuthenticationContext = createContext<AuthenticationState>({} as AuthenticationState);
-export const AuthenticationDispatchContext = createContext<Dispatch<AuthenticationAction>>({} as Dispatch<AuthenticationAction>);
+export const AuthenticationDispatchContext = createContext<Dispatch<AuthenticationAction>>(
+  {} as Dispatch<AuthenticationAction>,
+);
 
 export const AuthenticationProvider = ({ children }: PropsWithChildren) => {
   const [state, dispatch] = useReducer(AuthenticationReducer, initialAuthenticationState);

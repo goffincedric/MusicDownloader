@@ -3,17 +3,13 @@ import { initialMusicState, MusicReducer, MusicState } from './MusicReducer';
 import { MusicAction } from './MusicActions';
 
 export const MusicContext = createContext<MusicState>({} as MusicState);
-export const MusicDispatchContext = createContext<Dispatch<MusicAction>>(
-  {} as Dispatch<MusicAction>
-);
+export const MusicDispatchContext = createContext<Dispatch<MusicAction>>({} as Dispatch<MusicAction>);
 
 export const MusicProvider = ({ children }: PropsWithChildren) => {
   const [state, dispatch] = useReducer(MusicReducer, initialMusicState);
   return (
     <MusicContext.Provider value={state}>
-      <MusicDispatchContext.Provider value={dispatch}>
-        {children}
-      </MusicDispatchContext.Provider>
+      <MusicDispatchContext.Provider value={dispatch}>{children}</MusicDispatchContext.Provider>
     </MusicContext.Provider>
   );
 };

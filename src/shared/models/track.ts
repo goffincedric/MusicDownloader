@@ -5,6 +5,7 @@ import { DownloadStatusEnum } from '../enums/downloadStatusEnum';
 export abstract class Track {
   public downloadStatus: DownloadStatusEnum;
   public downloadProgress: number;
+  public downloadedBytesProgress: number;
   public downloadPromise?: CancelablePromise<File>;
   public file?: File;
 
@@ -21,5 +22,6 @@ export abstract class Track {
     if (videoId === null) throw Error('Invalid track id');
     this.downloadStatus = DownloadStatusEnum.WAITING_FOR_START;
     this.downloadProgress = 0;
+    this.downloadedBytesProgress = 0;
   }
 }

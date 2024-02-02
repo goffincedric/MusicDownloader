@@ -9,6 +9,6 @@ export const ThemeUtils = {
     if (mode === DarkThemeMode.NATIVE) isDarkMode = ThemeConstants.prefersDarkTheme();
     else if (mode === DarkThemeMode.LIGHT) isDarkMode = false;
     // Map to theme and return
-    return isDarkMode ? ThemeConstants.darkTheme : ThemeConstants.lightTheme
-  }
-}
+    return isDarkMode ? ThemeConstants.darkTheme : ThemeConstants.lightTheme;
+  },
+};

@@ -11,10 +11,7 @@ export const initialStepsState: StepperState = {
   canProgress: false,
 };
 
-export const StepsReducer = (
-  state: StepperState,
-  action: StepAction
-): StepperState => {
+export const StepsReducer = (state: StepperState, action: StepAction): StepperState => {
   switch (action.type) {
     case StepActionType.SET_PROGRESSION_ALLOWED:
       return {

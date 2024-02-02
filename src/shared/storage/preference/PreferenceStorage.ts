@@ -2,7 +2,6 @@ import { StorageConstants } from '../../constants/storage.constants';
 import { DarkThemeMode } from '../../enums/darkThemeModeEnum';
 
 export class PreferenceStorage {
-
   static setThemePreference(theme: DarkThemeMode): void {
     localStorage.setItem(StorageConstants.KEYS.PREFERENCES.THEME, theme);
   }

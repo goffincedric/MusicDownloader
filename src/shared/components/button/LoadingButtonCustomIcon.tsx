@@ -2,8 +2,7 @@ import { LoadingButton, LoadingButtonProps } from '@mui/lab';
 import { styled } from '@mui/material';
 import { ReactNode } from 'react';
 
-interface LoadingButtonCustomIconProps
-  extends Exclude<LoadingButtonProps, 'loadingIndicator'> {
+interface LoadingButtonCustomIconProps extends Exclude<LoadingButtonProps, 'loadingIndicator'> {
   loadingIcon: ReactNode;
 }
 
@@ -22,15 +21,10 @@ const Keyframes = styled('div')({
   alignItems: 'center',
 });
 
-export default function LoadingButtonCustomIcon(
-  props: LoadingButtonCustomIconProps
-) {
+export default function LoadingButtonCustomIcon(props: LoadingButtonCustomIconProps) {
   const { loadingIcon } = props;
   return (
-    <LoadingButton
-      {...props}
-      loadingIndicator={<Keyframes>{loadingIcon}</Keyframes>}
-    >
+    <LoadingButton {...props} loadingIndicator={<Keyframes>{loadingIcon}</Keyframes>}>
       {props.children}
     </LoadingButton>
   );
