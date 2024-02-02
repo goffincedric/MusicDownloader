@@ -21,7 +21,7 @@ function addTracks(tracks: Track[], container: string, dispatchMusicAction: Disp
     ...tracks.map((track) => {
       track.downloadPromise = undefined;
       return track;
-    })
+    }),
   );
   updateWorkers(container, dispatchMusicAction);
 }
@@ -47,6 +47,7 @@ function cancelTrackDownload(track: Track, dispatchMusicAction: Dispatch<MusicAc
   const index = queue.findIndex((queuedTrack) => queuedTrack.id === track.id);
   if (index >= 0) queue.splice(index, 1);
   track.downloadProgress = 0;
+  track.downloadedBytesProgress = 0;
   track.downloadStatus = DownloadStatusEnum.CANCELLED;
 }
 
@@ -74,7 +75,7 @@ function updateWorkers(container: string, dispatchMusicAction: Dispatch<MusicAct
         removeWorker(worker.id);
         // Create new worker
         updateWorkers(container, dispatchMusicAction);
-      }
+      },
     );
   }
 }

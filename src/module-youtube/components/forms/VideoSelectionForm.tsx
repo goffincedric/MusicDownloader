@@ -35,7 +35,13 @@ export default function VideoSelectionForm({
           {TranslationConstants.LABELS.TRACK_CHOICE_STEP_TITLE}
         </Typography>
         <Box sx={{ display: 'flex', justifyContent: 'flex-end' }} mb={2}>
-          <NavigationButtons onBack={onBack} onNext={onNext} canProgress={canProgress} isProgressing={loading} gutterTop={false} />
+          <NavigationButtons
+            onBack={onBack}
+            onNext={onNext}
+            canProgress={canProgress}
+            isProgressing={loading}
+            gutterTop={false}
+          />
         </Box>
       </Box>
       <Divider sx={{ mb: 2 }} />

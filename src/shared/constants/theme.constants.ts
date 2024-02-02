@@ -14,8 +14,8 @@ export const ThemeConstants = {
           root: {
             paddingTop: '10px',
             paddingBottom: '10px',
-          }
-        }
+          },
+        },
       },
       MuiButtonBase: {
         defaultProps: {
@@ -33,13 +33,13 @@ export const ThemeConstants = {
             borderWidth: '1px',
             borderStyle: 'solid',
             borderRadius: '10px',
-          }
-        }
+          },
+        },
       },
       MuiDrawer: {
         styleOverrides: {
           paper: {
-            borderRadius: '10px 0 0 10px'
+            borderRadius: '10px 0 0 10px',
           },
         },
       },
@@ -454,8 +454,8 @@ export const ThemeConstants = {
           root: {
             paddingTop: '10px',
             paddingBottom: '10px',
-          }
-        }
+          },
+        },
       },
       MuiButtonBase: {
         defaultProps: {
@@ -473,15 +473,15 @@ export const ThemeConstants = {
             borderWidth: '1px',
             borderStyle: 'solid',
             borderRadius: '10px',
-            color: 'white'
-          }
-        }
+            color: 'white',
+          },
+        },
       },
       MuiDrawer: {
         styleOverrides: {
           paper: {
             backgroundColor: 'primary.900',
-            borderRadius: '10px 0 0 10px'
+            borderRadius: '10px 0 0 10px',
           },
         },
       },

@@ -77,7 +77,7 @@ export const AxiosUtils = {
 
         // Return the error if it's not a 401 Unauthorized error
         return Promise.reject(error);
-      }
+      },
     );
   },
 };

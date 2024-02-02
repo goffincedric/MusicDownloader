@@ -1,7 +1,6 @@
 import { StorageConstants } from '../../constants/storage.constants';
 
 export class AuthenticationStorage {
-
   static setAPIKey(token: string): void {
     localStorage.setItem(StorageConstants.KEYS.AUTHENTICATION.API_TOKEN, token);
   }

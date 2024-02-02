@@ -1,5 +1,5 @@
 export enum YoutubeUrlType {
-  VIDEO = "VIDEO",
-  PLAYLIST = "PLAYLIST",
-  UNKNOWN = "UNKNOWN"
+  VIDEO = 'VIDEO',
+  PLAYLIST = 'PLAYLIST',
+  UNKNOWN = 'UNKNOWN',
 }

@@ -15,7 +15,7 @@ export const initialAuthenticationState: AuthenticationState = {
 
 export const AuthenticationReducer = (
   state: AuthenticationState,
-  action: AuthenticationAction
+  action: AuthenticationAction,
 ): AuthenticationState => {
   switch (action.type) {
     case AuthenticationActionType.AUTHENTICATE:

@@ -5,10 +5,12 @@ import Typography from '@mui/material/Typography';
 import { TranslationConstants } from '../../shared/constants/translation.constants';
 import { Close, DownloadDone, Refresh } from '@mui/icons-material';
 import { green } from '@mui/material/colors';
+import { JSX } from 'react';
 
 interface TrackProcessingStatusProps {
   downloadStatus: DownloadStatusEnum;
   downloadProgress: number;
+  downloadedBytesProgress: number;
   onRetry: () => void;
   onCancel: () => void;
 }
@@ -16,6 +18,7 @@ interface TrackProcessingStatusProps {
 export default function TrackProcessingStatus({
   downloadStatus,
   downloadProgress,
+  downloadedBytesProgress,
   onRetry,
   onCancel,
 }: TrackProcessingStatusProps): JSX.Element {
@@ -41,6 +44,23 @@ export default function TrackProcessingStatus({
       </Fab>
     );
   } else {
+    // If no progress is given but the amount of downloaded bytes is given, then don't show circular loader
+    let progressText: JSX.Element | undefined = undefined;
+    if (downloadProgress === 0 && downloadedBytesProgress > 0) {
+      progressText = (
+        <Typography variant="caption" component="div" color="text.secondary">{`${(
+          downloadedBytesProgress /
+          1000 /
+          1000
+        ).toFixed(1)}MB`}</Typography>
+      );
+    } else if (downloadProgress > 0) {
+      progressText = (
+        <Typography variant="caption" component="div" color="text.secondary">{`${downloadProgress.toFixed(
+          1,
+        )}%`}</Typography>
+      );
+    }
     content = (
       <Stack direction="row">
         <Box sx={{ position: 'relative', display: 'inline-flex' }}>
@@ -61,9 +81,7 @@ export default function TrackProcessingStatus({
               justifyContent: 'center',
             }}
           >
-            <Typography variant="caption" component="div" color="text.secondary">{`${Math.round(
-              downloadProgress
-            )}%`}</Typography>
+            {progressText}
           </Box>
         </Box>
       </Stack>

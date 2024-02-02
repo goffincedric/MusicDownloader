@@ -20,22 +20,14 @@ export default function YoutubeSteps() {
   return (
     <Container component="main" maxWidth="lg" sx={{ mb: 4 }}>
       <Paper elevation={3} sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
-        <Stepper
-          activeStep={currentStep}
-          sx={{ pt: 3, pb: 3 }}
-          alternativeLabel
-        >
+        <Stepper activeStep={currentStep} sx={{ pt: 3, pb: 3 }} alternativeLabel>
           {GlobalConstants.Steps.map((step, index) => (
             <Step key={index}>
               <StepLabel>{step.label}</StepLabel>
             </Step>
           ))}
         </Stepper>
-        {currentStep === steps.length ? (
-          <StepsCompleted />
-        ) : (
-          <Fragment>{getStepContent(currentStep)}</Fragment>
-        )}
+        {currentStep === steps.length ? <StepsCompleted /> : <Fragment>{getStepContent(currentStep)}</Fragment>}
       </Paper>
     </Container>
   );

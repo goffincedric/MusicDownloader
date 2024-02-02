@@ -10,11 +10,11 @@ export class YoutubeTrack extends Track {
     public title: string,
     public url: string,
     public thumbnail: ThumbnailDetails,
-    public selected: boolean = false
+    public selected: boolean = false,
   ) {
     super(id, author, title, url, thumbnail, selected);
     const videoId = YoutubeUtils.getVideoId(url);
-    if (videoId === null) throw Error("Invalid track id");
+    if (videoId === null) throw Error('Invalid track id');
     this.videoId = videoId;
   }
 }

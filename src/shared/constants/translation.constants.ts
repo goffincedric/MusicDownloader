@@ -35,6 +35,7 @@ export const TranslationConstants = {
     STEPS_COMPLETED_RETRY: 'Want to download another video/playlist? Click the button below to start over!',
     MP3: 'mp3',
     OGG: 'ogg',
+    SOURCE: 'source',
     NEVER_SHOW_DIALOG_AGAIN: 'Never ask this again',
   },
   DIALOGS: {

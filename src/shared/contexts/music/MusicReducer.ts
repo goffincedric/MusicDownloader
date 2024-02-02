@@ -20,7 +20,7 @@ export const MusicReducer = (state: MusicState, action: MusicAction): MusicState
       return {
         ...state,
         url: action.url,
-        container: action.container
+        container: action.container,
       };
     case MusicActionType.SET_TRACKS:
       return {

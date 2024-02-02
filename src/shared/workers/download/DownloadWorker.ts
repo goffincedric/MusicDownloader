@@ -5,16 +5,23 @@ import { DownloadStatusEnum } from '../../enums/downloadStatusEnum';
 import { VideoDownloadService } from '../../services/youtube/VideoDownloadService';
 import { CancelError } from '../../services/openapi';
 import { AxiosProgressEvent } from 'axios';
+import { MusicConstants } from '../../constants/music.constants';
 
 export class DownloadWorker {
   public id = crypto.randomUUID();
+
   public get stopped() {
     return this._stopped || this.currentDownloadingTrack?.downloadStatus === DownloadStatusEnum.CANCELLED;
-  };
+  }
+
   private _stopped = false;
   private currentDownloadingTrack?: Track;
 
-  constructor(private sharedQueue: Track[], private container: string, private dispatchMusicAction: Dispatch<MusicAction>) {}
+  constructor(
+    private sharedQueue: Track[],
+    private container: string | undefined = undefined,
+    private dispatchMusicAction: Dispatch<MusicAction>,
+  ) {}
 
   async start(): Promise<void> {
     // Loop until no tracks are left in queue
@@ -28,8 +35,9 @@ export class DownloadWorker {
         // Start downloading video
         this.currentDownloadingTrack.downloadPromise = VideoDownloadService.getYoutubeVideoDownload(
           this.currentDownloadingTrack.url,
-          this.container,
-          (progressEvent) => handleDownloadProgress(this.currentDownloadingTrack!, progressEvent, this.dispatchMusicAction)
+          this.container !== MusicConstants.CONTAINERS.SOURCE ? this.container : undefined,
+          (progressEvent) =>
+            handleDownloadProgress(this.currentDownloadingTrack!, progressEvent, this.dispatchMusicAction),
         );
         // Update track before awaiting download
         this.dispatchMusicAction({
@@ -70,12 +78,12 @@ export class DownloadWorker {
 const handleDownloadProgress = (
   track: Track,
   progressEvent: AxiosProgressEvent,
-  dispatchMusicAction: Dispatch<MusicAction>
+  dispatchMusicAction: Dispatch<MusicAction>,
 ) => {
   // Set status as downloading
   dispatchMusicAction({
     type: MusicActionType.SET_DOWNLOAD_STATUS,
-    downloadStatus: DownloadStatusEnum.DOWNLOADING
+    downloadStatus: DownloadStatusEnum.DOWNLOADING,
   });
 
   // Set new status and progress value
@@ -83,11 +91,12 @@ const handleDownloadProgress = (
   const newProgress = (progressEvent.progress ?? 0) * 100;
   if (newProgress === 100) newStatus = DownloadStatusEnum.FINISHED;
   track.downloadProgress = newProgress;
+  track.downloadedBytesProgress = progressEvent.loaded;
   track.downloadStatus = newStatus;
 
   // Update track
   dispatchMusicAction({
     type: MusicActionType.UPDATE_TRACK,
-    updatedTrack: track
+    updatedTrack: track,
   });
 };

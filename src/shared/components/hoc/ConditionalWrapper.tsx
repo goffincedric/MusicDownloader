@@ -13,9 +13,5 @@ export function ConditionalWrapper<T>({
   children,
 }: ConditionalWrapperProps<T> & PropsWithChildren<any>): JSX.Element {
   const Wrapper = wrapper;
-  return condition() ? (
-    <Wrapper {...wrapperProps}>{children}</Wrapper>
-  ) : (
-    children
-  );
+  return condition() ? <Wrapper {...wrapperProps}>{children}</Wrapper> : children;
 }

@@ -48,7 +48,7 @@ export default function ProcessingStep() {
   // Calculate current and total progress for progress bar
   const progressableTracks = useMemo(
     () => selectedTracks.filter((track) => !GlobalConstants.Music.RETRYABLE_STATUSES.includes(track.downloadStatus)),
-    [selectedTracks]
+    [selectedTracks],
   );
   const totalProgress = useMemo(() => progressableTracks.length * 100, [progressableTracks.length]);
   const currentProgress = progressableTracks.reduce((total, track) => total + track.downloadProgress, 0);
@@ -66,7 +66,7 @@ export default function ProcessingStep() {
   const handleCancelVideoDownloads = () => DownloadWorkerManager.cancelAllTrackDownloads(dispatchMusicAction);
   const onNext = (bypassDialog = false) => {
     const showDialog = PreferenceStorage.getAlertVisibilityPreference(
-      StorageConstants.KEYS.ALERT_VISIBILITY.CONTINUE_WITH_FAILED_DOWNLOADS
+      StorageConstants.KEYS.ALERT_VISIBILITY.CONTINUE_WITH_FAILED_DOWNLOADS,
     );
     if (showDialog && !bypassDialog && (hasFailedTracks || hasCancelledTracks)) openDialog(true);
     else dispatchStepAction({ type: StepActionType.PROGRESS });
